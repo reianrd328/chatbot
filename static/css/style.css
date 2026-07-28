@@ -1,0 +1,123 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#202123;
+    color:white;
+}
+
+.app{
+    display:flex;
+    height:100vh;
+}
+
+.sidebar{
+    width:260px;
+    background:#171717;
+    display:flex;
+    flex-direction:column;
+}
+
+.logo{
+    padding:20px;
+    font-size:24px;
+    font-weight:bold;
+    border-bottom:1px solid #333;
+}
+
+.new-chat{
+    margin:15px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#10a37f;
+    color:white;
+    font-size:16px;
+}
+
+.chat-history{
+    flex:1;
+    overflow:auto;
+    padding:15px;
+}
+
+.chat-item{
+    padding:12px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:10px;
+    background:#2b2b2b;
+}
+
+.chat-item:hover{
+    background:#3b3b3b;
+}
+
+.active{
+    background:#10a37f;
+}
+
+.user-panel{
+    border-top:1px solid #333;
+    padding:20px;
+}
+
+.user-panel a{
+    color:#10a37f;
+    text-decoration:none;
+}
+
+.chat-area{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+}
+
+.messages{
+    flex:1;
+    overflow:auto;
+    padding:40px;
+}
+
+.welcome{
+    text-align:center;
+    margin-top:120px;
+}
+
+.welcome h1{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.chat-input{
+    display:flex;
+    padding:20px;
+    background:#2b2b2b;
+}
+
+textarea{
+    flex:1;
+    resize:none;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    padding:15px;
+    font-size:16px;
+    height:60px;
+}
+
+button{
+    margin-left:15px;
+    padding:15px 30px;
+    border:none;
+    border-radius:10px;
+    background:#10a37f;
+    color:white;
+    cursor:pointer;
+    font-size:16px;
+}
