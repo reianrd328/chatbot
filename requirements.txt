@@ -7,3 +7,4 @@ Werkzeug
 python-dotenv
 gunicorn
 openai
+openai>=1.30.0
