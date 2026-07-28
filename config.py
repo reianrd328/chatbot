@@ -2,22 +2,23 @@ import os
 
 class Config:
     # Flask
-    SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key-change-me")
+    SECRET_KEY = os.getenv("SECRET_KEY", "change-this-secret")
 
     # Database
-    DB_HOST = os.environ.get("DB_HOST")
-    DB_PORT = os.environ.get("DB_PORT", "4000")
-    DB_USER = os.environ.get("DB_USER")
-    DB_PASSWORD = os.environ.get("DB_PASSWORD")
-    DB_NAME = os.environ.get("DB_NAME", "chatbot")
+    DB_HOST = os.getenv("DB_HOST")
+    DB_PORT = os.getenv("DB_PORT", "4000")
+    DB_USER = os.getenv("DB_USER")
+    DB_PASSWORD = os.getenv("DB_PASSWORD")
+    DB_NAME = os.getenv("DB_NAME", "sys")
 
     SQLALCHEMY_DATABASE_URI = (
         f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}"
         f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+        "?ssl_verify_cert=false"
     )
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # AI
-    API_KEY = os.environ.get("API_KEY")
-    BASE_URL = os.environ.get("BASE_URL", "https://api.hcnsec.cn/v1")
+    API_KEY = os.getenv("API_KEY")
+    BASE_URL = os.getenv("BASE_URL", "https://api.hcnsec.cn/v1")
