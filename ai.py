@@ -3,23 +3,20 @@ from config import Config
 
 client = OpenAI(
     api_key=Config.API_KEY,
-    base_url=Config.BASE_URL
+    base_url=Config.BASE_URL,
 )
 
-
 def ask_ai(message):
+    print("Sending request...")
+
     response = client.chat.completions.create(
         model="DeepSeek-V4-Flash",
         messages=[
-            {
-                "role": "system",
-                "content": "You are a helpful AI assistant."
-            },
-            {
-                "role": "user",
-                "content": message
-            }
-        ]
+            {"role": "user", "content": message}
+        ],
+        timeout=30
     )
+
+    print("Response received")
 
     return response.choices[0].message.content
