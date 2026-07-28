@@ -12,15 +12,15 @@ def ask_ai(message):
 
     try:
 
-        response = client.chat.completions.create(
-          model="DeepSeek-V4-Flash",
-            messages=[
-                {
-                    "role": "user",
-                    "content": message
-                }
-            ]
-        )
+       response = client.chat.completions.create(
+    model="auto",
+    messages=[
+        {
+            "role": "user",
+            "content": message
+        }
+    ]
+)
 
         return response.choices[0].message.content
 
