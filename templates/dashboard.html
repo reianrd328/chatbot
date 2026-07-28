@@ -1,58 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chatbot</title>
 
-    <title>AI Chatbot</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-<div class="container">
+<div class="app">
 
     <!-- Sidebar -->
-    <aside class="sidebar">
+    <div class="sidebar">
 
         <div class="logo">
             🤖 AI Chatbot
         </div>
 
-        <button class="new-chat-btn">
+        <button class="new-chat">
             + New Chat
         </button>
 
-        <div class="chat-list">
-
-            <div class="chat-item active">
+        <div class="conversation-list">
+            <div class="conversation active">
                 New Conversation
             </div>
-
         </div>
 
-        <div class="sidebar-footer">
+        <div class="sidebar-bottom">
 
             <div class="username">
                 👤 {{ username }}
             </div>
 
-            <a href="{{ url_for('auth.logout') }}">
+            <a href="/logout" class="logout">
                 Logout
             </a>
 
         </div>
 
-    </aside>
+    </div>
 
     <!-- Main Chat -->
-    <main class="chat-container">
+    <div class="chat-container">
 
         <!-- Messages -->
-        <div id="chatBox" class="chat-box">
+        <div class="messages" id="messages">
 
+            <!-- Welcome Message -->
             <div class="message bot">
 
                 <div class="avatar">
@@ -60,12 +58,48 @@
                 </div>
 
                 <div class="bubble">
-                    Hello! 👋<br><br>
-                    I'm your AI assistant.<br>
-                    Ask me anything.
+
+                    <p>Hello! 👋</p>
+
+                    <p>I'm your AI assistant.</p>
+
+                    <p>Ask me anything.</p>
+
                 </div>
 
             </div>
+
+
+            <!-- Previous Chat History -->
+            {% for message in messages %}
+
+                {% if message.sender == "user" %}
+
+                <div class="message user">
+
+                    <div class="bubble">
+                        {{ message.content }}
+                    </div>
+
+                </div>
+
+                {% else %}
+
+                <div class="message bot">
+
+                    <div class="avatar">
+                        🤖
+                    </div>
+
+                    <div class="bubble">
+                        {{ message.content }}
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            {% endfor %}
 
         </div>
 
@@ -73,11 +107,10 @@
         <div class="chat-input">
 
             <input
-                type="text"
                 id="messageInput"
+                type="text"
                 placeholder="Message AI..."
-                autocomplete="off"
-            >
+                autocomplete="off">
 
             <button id="sendBtn">
                 Send
@@ -85,11 +118,174 @@
 
         </div>
 
-    </main>
+    </div>
 
 </div>
 
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+<script>
+
+const input=document.getElementById("messageInput");
+
+const sendBtn=document.getElementById("sendBtn");
+
+const messages=document.getElementById("messages");
+
+
+function scrollBottom(){
+
+    messages.scrollTop=messages.scrollHeight;
+
+}
+
+scrollBottom();
+
+
+async function sendMessage(){
+
+    const text=input.value.trim();
+
+    if(text==="") return;
+
+
+    // User Message
+    messages.innerHTML+=`
+
+        <div class="message user">
+
+            <div class="bubble">
+
+                ${text}
+
+            </div>
+
+        </div>
+
+    `;
+
+    scrollBottom();
+
+    input.value="";
+
+
+    // Thinking Message
+    const thinking=document.createElement("div");
+
+    thinking.className="message bot";
+
+    thinking.innerHTML=`
+
+        <div class="avatar">
+
+            🤖
+
+        </div>
+
+        <div class="bubble">
+
+            Thinking...
+
+        </div>
+
+    `;
+
+    messages.appendChild(thinking);
+
+    scrollBottom();
+
+
+    try{
+
+        const response=await fetch("/chat",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+                message:text
+            })
+
+        });
+
+
+        const data=await response.json();
+
+
+        thinking.remove();
+
+
+        messages.innerHTML+=`
+
+            <div class="message bot">
+
+                <div class="avatar">
+
+                    🤖
+
+                </div>
+
+                <div class="bubble">
+
+                    ${data.reply}
+
+                </div>
+
+            </div>
+
+        `;
+
+        scrollBottom();
+
+    }
+
+    catch(error){
+
+        thinking.remove();
+
+        messages.innerHTML+=`
+
+            <div class="message bot">
+
+                <div class="avatar">
+
+                    🤖
+
+                </div>
+
+                <div class="bubble">
+
+                    Error connecting to AI.
+
+                </div>
+
+            </div>
+
+        `;
+
+        scrollBottom();
+
+    }
+
+}
+
+
+sendBtn.addEventListener("click",sendMessage);
+
+
+input.addEventListener("keypress",function(e){
+
+    if(e.key==="Enter"){
+
+        sendMessage();
+
+    }
+
+});
+
+</script>
 
 </body>
 </html>
