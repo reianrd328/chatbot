@@ -1,20 +1,23 @@
-from flask import Flask
-from flask_login import LoginManager
+from flask import Flask, redirect, render_template
+from flask_login import LoginManager, login_required, current_user
+
 from config import Config
 from models import db, User
 from auth import auth
-from flask import render_template
-from flask_login import login_required, current_user
-from flask import Flask, redirect, render_template
 
+# Create Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
 
+# Initialize database
 db.init_app(app)
 
+# Initialize Login Manager
 login_manager = LoginManager()
-login_manager.login_view = "login"
+login_manager.login_view = "auth.login"
 login_manager.init_app(app)
+
+# Register Blueprints
 app.register_blueprint(auth)
 
 
@@ -27,6 +30,7 @@ def load_user(user_id):
 def home():
     return redirect("/login")
 
+
 @app.route("/dashboard")
 @login_required
 def dashboard():
@@ -36,5 +40,14 @@ def dashboard():
     )
 
 
+# Create database tables when the application starts
+with app.app_context():
+    try:
+        db.create_all()
+        print("✅ Database connected successfully.")
+    except Exception as e:
+        print("❌ Database Error:", e)
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
