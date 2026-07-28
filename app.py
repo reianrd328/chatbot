@@ -14,6 +14,7 @@ db.init_app(app)
 login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.init_app(app)
+app.register_blueprint(auth)
 
 
 @login_manager.user_loader
