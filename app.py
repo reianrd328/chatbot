@@ -2,6 +2,9 @@ from flask import Flask
 from flask_login import LoginManager
 from config import Config
 from models import db, User
+from auth import auth
+from flask import render_template
+from flask_login import login_required, current_user
 
 app = Flask(__name__)
 app.config.from_object(Config)
