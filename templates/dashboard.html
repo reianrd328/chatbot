@@ -1,15 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-<h1>Welcome {{ username }}</h1>
+<div class="app">
 
-<p>You are now logged in.</p>
+    <!-- Sidebar -->
+    <aside class="sidebar">
 
-<a href="/logout">Logout</a>
+        <div class="logo">
+            🤖 AI Chatbot
+        </div>
+
+        <button class="new-chat">
+            + New Chat
+        </button>
+
+        <div class="chat-history">
+
+            <div class="chat-item active">
+                New Conversation
+            </div>
+
+        </div>
+
+        <div class="user-panel">
+
+            <div>
+                👤 {{ username }}
+            </div>
+
+            <a href="/logout">
+                Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+    <!-- Main -->
+    <main class="chat-area">
+
+        <div class="messages" id="messages">
+
+            <div class="welcome">
+
+                <h1>Hello, {{ username }} 👋</h1>
+
+                <p>
+                    Ask me anything.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="chat-input">
+
+            <textarea
+                id="message"
+                placeholder="Type your message..."
+            ></textarea>
+
+            <button id="sendBtn">
+                Send
+            </button>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
 </html>
