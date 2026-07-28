@@ -49,6 +49,20 @@ with app.app_context():
     except Exception as e:
         print("❌ Database Error:", e)
 
+@app.route("/chat", methods=["POST"])
+@login_required
+def chat():
+
+    data = request.get_json()
+
+    message = data.get("message", "")
+
+    reply = ask_ai(message)
+
+    return jsonify({
+        "reply": reply
+    })
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
