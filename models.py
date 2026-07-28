@@ -32,6 +32,14 @@ class User(UserMixin, db.Model):
         server_default=db.func.now()
     )
 
+    # Relationships
+    conversations = db.relationship(
+        "Conversation",
+        backref="user",
+        lazy=True,
+        cascade="all, delete-orphan"
+    )
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -40,3 +48,66 @@ class User(UserMixin, db.Model):
             self.password_hash,
             password
         )
+
+
+class Conversation(db.Model):
+    __tablename__ = "conversations"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id"),
+        nullable=False
+    )
+
+    title = db.Column(
+        db.String(255),
+        default="New Conversation"
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now()
+    )
+
+    updated_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now(),
+        onupdate=db.func.now()
+    )
+
+    messages = db.relationship(
+        "Message",
+        backref="conversation",
+        lazy=True,
+        cascade="all, delete-orphan",
+        order_by="Message.created_at"
+    )
+
+
+class Message(db.Model):
+    __tablename__ = "messages"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    conversation_id = db.Column(
+        db.Integer,
+        db.ForeignKey("conversations.id"),
+        nullable=False
+    )
+
+    role = db.Column(
+        db.String(20),
+        nullable=False
+    )
+
+    content = db.Column(
+        db.Text,
+        nullable=False
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        server_default=db.func.now()
+    )
