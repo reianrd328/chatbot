@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template
 from flask_login import LoginManager, login_required, current_user
-from flask_migrate import Migrate
+
 
 from config import Config
 from models import db, User
