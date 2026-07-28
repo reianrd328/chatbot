@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template
 from flask_login import LoginManager, login_required, current_user
-
+from ai import ask_ai
+from flask import request, jsonify
 from config import Config
 from models import db, User
 from auth import auth
