@@ -5,6 +5,7 @@ from flask import request, jsonify
 from config import Config
 from models import db, User
 from auth import auth
+from flask_migrate import Migrate
 
 # Create Flask app
 app = Flask(__name__)
