@@ -1,4 +1,3 @@
-
 from openai import OpenAI
 from config import Config
 
@@ -9,20 +8,18 @@ client = OpenAI(
 
 
 def ask_ai(message):
+    response = client.chat.completions.create(
+        model="DeepSeek-V4-Flash",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a helpful AI assistant."
+            },
+            {
+                "role": "user",
+                "content": message
+            }
+        ]
+    )
 
-    try:
-
-       response = client.chat.completions.create(
-    model="auto",
-    messages=[
-        {
-            "role": "user",
-            "content": message
-        }
-    ]
-)
-
-        return response.choices[0].message.content
-
-    except Exception as e:
-        return f"Error: {str(e)}"
+    return response.choices[0].message.content
