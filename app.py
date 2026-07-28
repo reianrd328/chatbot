@@ -24,16 +24,7 @@ def load_user(user_id):
 
 @app.route("/")
 def home():
-    return """
-    <h1>🚀 AI Chatbot</h1>
-    <p>Backend is running.</p>
-    <a href="/login">Login</a><br>
-    <a href="/register">Register</a>
-    """
-
-
-with app.app_context():
-    db.create_all()
+    return redirect("/login")
 
 
 if __name__ == "__main__":
