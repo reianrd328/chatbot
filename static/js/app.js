@@ -1,29 +1,50 @@
-const sendBtn = document.getElementById("sendBtn");
-const messages = document.getElementById("messages");
-const textarea = document.getElementById("message");
+function addUserMessage(text){
 
-sendBtn.addEventListener("click", () => {
+    const html = `
+    <div class="message user">
+        <div class="avatar">🧑</div>
+
+        <div class="bubble user-bubble">
+            ${text}
+        </div>
+    </div>
+    `;
+
+    messages.insertAdjacentHTML("beforeend", html);
+
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function addBotMessage(text){
+
+    const html = `
+    <div class="message bot">
+        <div class="avatar">🤖</div>
+
+        <div class="bubble bot-bubble">
+            ${text}
+        </div>
+    </div>
+    `;
+
+    messages.insertAdjacentHTML("beforeend", html);
+
+    messages.scrollTop = messages.scrollHeight;
+}
+
+sendBtn.addEventListener("click", ()=>{
 
     const text = textarea.value.trim();
 
-    if (!text) return;
+    if(text==="") return;
 
-    messages.innerHTML += `
-        <div style="text-align:right;margin:20px;">
-            <div style="
-                display:inline-block;
-                background:#10a37f;
-                padding:15px;
-                border-radius:12px;
-                max-width:70%;
-            ">
-                ${text}
-            </div>
-        </div>
-    `;
+    addUserMessage(text);
 
     textarea.value="";
 
-    messages.scrollTop = messages.scrollHeight;
+    // temporary fake reply
+    setTimeout(()=>{
+        addBotMessage("Hello! Soon I'll be connected to HCNSec AI.");
+    },800);
 
 });
