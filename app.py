@@ -26,6 +26,14 @@ def load_user(user_id):
 def home():
     return redirect("/login")
 
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template(
+        "dashboard.html",
+        username=current_user.username
+    )
+
 
 if __name__ == "__main__":
     app.run(debug=True)
