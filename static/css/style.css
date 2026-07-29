@@ -69,6 +69,13 @@ body {
     background:#0f8f71;
 }
 
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #343541;
+}
+
 .chat-history{
     flex:1;
     overflow-y:auto;
