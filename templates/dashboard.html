@@ -1,29 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lyrch AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+</head>
+
 <body>
 
 <div class="dashboard">
 
+    <!-- ===================== -->
     <!-- Sidebar -->
+    <!-- ===================== -->
 
     <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ✦
+            </div>
+
+            <div class="logo-text">
+
+                <h2>Lyrch <span>AI</span></h2>
+
+                <p>Think Clearly.</p>
+
+            </div>
+
+        </div>
+
+        <button class="new-chat">
+
+            ＋ New Chat
+
+        </button>
+
+        <div class="sidebar-divider"></div>
+
+        <div class="chat-history">
+
+            <h4>Recent Chats</h4>
+
+        </div>
+
+        <div class="sidebar-footer">
+
+            <button>⚙ Settings</button>
+
+            <button>👤 Profile</button>
+
+            <button>🚪 Logout</button>
+
+        </div>
+
     </aside>
 
-    <!-- Main -->
+
+    <!-- ===================== -->
+    <!-- Workspace -->
+    <!-- ===================== -->
 
     <main class="workspace">
 
+
+        <!-- ===================== -->
         <!-- Hero -->
+        <!-- ===================== -->
 
-        <section class="hero">
+        <section id="hero" class="hero">
+
+            <div class="hero-logo">
+
+                ✦
+
+            </div>
+
+            <h1>
+
+                Lyrch <span>AI</span>
+
+            </h1>
+
+            <h2>
+
+                Think Clearly.
+                Create Confidently.
+
+            </h2>
+
+            <p>
+
+                Learning • Yielding • Reasoning • Creativity • Harmony
+
+            </p>
+
+
+            <div class="feature-grid">
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">💻</div>
+
+                    <h3>Code Assistant</h3>
+
+                    <p>Build, debug and learn code faster.</p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">✍️</div>
+
+                    <h3>Writing Studio</h3>
+
+                    <p>Emails, blogs, reports and content.</p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">📄</div>
+
+                    <h3>Document AI</h3>
+
+                    <p>Analyze PDFs and summarize documents.</p>
+
+                </div>
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">💡</div>
+
+                    <h3>Idea Lab</h3>
+
+                    <p>Brainstorm and organize new ideas.</p>
+
+                </div>
+
+            </div>
+
         </section>
 
+
+
+        <!-- ===================== -->
         <!-- Chat -->
+        <!-- ===================== -->
 
-        <section class="chat-area">
+        <section id="chatArea" class="chat-area">
+
+            <!-- Messages will appear here -->
+
         </section>
 
+
+
+        <!-- ===================== -->
         <!-- Prompt -->
+        <!-- ===================== -->
 
         <footer class="prompt-area">
+
+            <div class="prompt-box">
+
+                <button class="attach-btn">
+
+                    📎
+
+                </button>
+
+                <input
+                    id="promptInput"
+                    type="text"
+                    placeholder="Ask Lyrch AI anything..."
+                >
+
+                <button class="voice-btn">
+
+                    🎤
+
+                </button>
+
+                <button class="send-btn">
+
+                    ➜
+
+                </button>
+
+            </div>
+
         </footer>
 
     </main>
@@ -31,3 +213,4 @@
 </div>
 
 </body>
+</html>
