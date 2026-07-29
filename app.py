@@ -33,13 +33,11 @@ def home():
 def dashboard():
     return render_template(
         "dashboard.html",
-        username=current_user.username
+        username=current_user.username,
+        messages=[]
     )
 
 
-# -----------------------------
-# AI CHAT ROUTE
-# -----------------------------
 @app.route("/chat", methods=["POST"])
 @login_required
 def chat():
@@ -47,26 +45,18 @@ def chat():
     data = request.get_json()
 
     if not data:
-        return jsonify({"reply": "No data received."}), 400
+        return jsonify({"reply": "No message received."}), 400
 
     message = data.get("message", "")
 
-    if message == "":
-        return jsonify({"reply": "Message cannot be empty."}), 400
-
     try:
-        reply = get_ai_response(message)
-
-        return jsonify({
-            "reply": reply
-        })
+        reply = ask_ai(message)
+        return jsonify({"reply": reply})
 
     except Exception as e:
-        print(e)
-
-        return jsonify({
-            "reply": "Error connecting to AI."
-        }), 500
+        import traceback
+        traceback.print_exc()
+        return jsonify({"reply": str(e)}), 500
 
 
 if __name__ == "__main__":
