@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
 
-<title>AI Chatbot</title>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
 
 <div class="app">
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <aside class="sidebar">
 
         <div class="logo">
             🤖 AI Chatbot
         </div>
 
-        <button class="new-chat">
+        <button class="new-chat" type="button">
             + New Chat
         </button>
 
@@ -36,21 +34,20 @@
                 👤 {{ username }}
             </div>
 
-            <a href="/logout" class="logout">
+            <a href="{{ url_for('auth.logout') }}" class="logout">
                 Logout
             </a>
 
         </div>
 
-    </div>
+    </aside>
 
-    <!-- Main Chat -->
-    <div class="chat-container">
+    <!-- Chat Area -->
+    <main class="chat-container">
 
-        <!-- Messages -->
         <div class="messages" id="messages">
 
-            <!-- Welcome Message -->
+            <!-- Welcome -->
             <div class="message bot">
 
                 <div class="avatar">
@@ -58,48 +55,43 @@
                 </div>
 
                 <div class="bubble">
-
                     <p>Hello! 👋</p>
-
                     <p>I'm your AI assistant.</p>
-
                     <p>Ask me anything.</p>
-
                 </div>
 
             </div>
 
+            <!-- Conversation History -->
+            {% if messages %}
+                {% for message in messages %}
 
-            <!-- Previous Chat History -->
-            {% for message in messages %}
+                    {% if message.sender == "user" %}
 
-                {% if message.sender == "user" %}
+                        <div class="message user">
+                            <div class="bubble">
+                                {{ message.content }}
+                            </div>
+                        </div>
 
-                <div class="message user">
+                    {% else %}
 
-                    <div class="bubble">
-                        {{ message.content }}
-                    </div>
+                        <div class="message bot">
 
-                </div>
+                            <div class="avatar">
+                                🤖
+                            </div>
 
-                {% else %}
+                            <div class="bubble">
+                                {{ message.content }}
+                            </div>
 
-                <div class="message bot">
+                        </div>
 
-                    <div class="avatar">
-                        🤖
-                    </div>
+                    {% endif %}
 
-                    <div class="bubble">
-                        {{ message.content }}
-                    </div>
-
-                </div>
-
-                {% endif %}
-
-            {% endfor %}
+                {% endfor %}
+            {% endif %}
 
         </div>
 
@@ -112,180 +104,17 @@
                 placeholder="Message AI..."
                 autocomplete="off">
 
-            <button id="sendBtn">
+            <button id="sendBtn" type="button">
                 Send
             </button>
 
         </div>
 
-    </div>
+    </main>
 
 </div>
 
-
-<script>
-
-const input=document.getElementById("messageInput");
-
-const sendBtn=document.getElementById("sendBtn");
-
-const messages=document.getElementById("messages");
-
-
-function scrollBottom(){
-
-    messages.scrollTop=messages.scrollHeight;
-
-}
-
-scrollBottom();
-
-
-async function sendMessage(){
-
-    const text=input.value.trim();
-
-    if(text==="") return;
-
-
-    // User Message
-    messages.innerHTML+=`
-
-        <div class="message user">
-
-            <div class="bubble">
-
-                ${text}
-
-            </div>
-
-        </div>
-
-    `;
-
-    scrollBottom();
-
-    input.value="";
-
-
-    // Thinking Message
-    const thinking=document.createElement("div");
-
-    thinking.className="message bot";
-
-    thinking.innerHTML=`
-
-        <div class="avatar">
-
-            🤖
-
-        </div>
-
-        <div class="bubble">
-
-            Thinking...
-
-        </div>
-
-    `;
-
-    messages.appendChild(thinking);
-
-    scrollBottom();
-
-
-    try{
-
-        const response=await fetch("/chat",{
-
-            method:"POST",
-
-            headers:{
-                "Content-Type":"application/json"
-            },
-
-            body:JSON.stringify({
-                message:text
-            })
-
-        });
-
-
-        const data=await response.json();
-
-
-        thinking.remove();
-
-
-        messages.innerHTML+=`
-
-            <div class="message bot">
-
-                <div class="avatar">
-
-                    🤖
-
-                </div>
-
-                <div class="bubble">
-
-                    ${data.reply}
-
-                </div>
-
-            </div>
-
-        `;
-
-        scrollBottom();
-
-    }
-
-    catch(error){
-
-        thinking.remove();
-
-        messages.innerHTML+=`
-
-            <div class="message bot">
-
-                <div class="avatar">
-
-                    🤖
-
-                </div>
-
-                <div class="bubble">
-
-                    Error connecting to AI.
-
-                </div>
-
-            </div>
-
-        `;
-
-        scrollBottom();
-
-    }
-
-}
-
-
-sendBtn.addEventListener("click",sendMessage);
-
-
-input.addEventListener("keypress",function(e){
-
-    if(e.key==="Enter"){
-
-        sendMessage();
-
-    }
-
-});
-
-</script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
 </html>
