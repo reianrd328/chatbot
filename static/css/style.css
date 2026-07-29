@@ -219,13 +219,31 @@ body {
    INPUT
 =========================== */
 
-.chat-input{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:20px;
-    background:#2b2b2b;
-    border-top:1px solid #3b3b3b;
+.chat-input {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    background: #40414f;
+    border-top: 1px solid #555;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #2d2d2d;
+    color: white;
+    font-size: 16px;
+}
+
+.chat-input button {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #10a37f;
+    color: white;
+    cursor: pointer;
 }
 
 textarea{
