@@ -1,204 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LYRCH AI</title>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
 <body>
 
-<div class="app">
+<div class="dashboard">
 
     <!-- Sidebar -->
+
     <aside class="sidebar">
-
-        <div class="brand">
-
-            <div class="logo">
-                ✦
-            </div>
-
-            <h1>LYRCH AI</h1>
-
-            <p>Think Clearly.<br>Create Confidently.</p>
-
-        </div>
-
-        <button class="new-chat">
-            ✨ New Chat
-        </button>
-
-        <div class="section-title">
-            Conversations
-        </div>
-
-        <div class="conversation-list">
-
-            <div class="conversation active">
-                💬 New Conversation
-            </div>
-
-        </div>
-
-        <div class="sidebar-bottom">
-
-            <div class="user-card">
-
-                <div class="user-avatar">
-                    👤
-                </div>
-
-                <div>
-
-                    <strong>{{ username }}</strong>
-
-                    <small>Member</small>
-
-                </div>
-
-            </div>
-
-            <a class="logout" href="{{ url_for('auth.logout') }}">
-                Logout
-            </a>
-
-        </div>
-
     </aside>
 
     <!-- Main -->
-    <main class="chat-panel">
 
-       <header class="hero">
+    <main class="workspace">
 
-    <div class="hero-logo">
-        ✦
-    </div>
+        <!-- Hero -->
 
-    <h1>LYRCH AI</h1>
-
-    <h2>Think Clearly. Create Confidently.</h2>
-
-    <p>
-        Learning • Yielding • Reasoning • Creativity • Harmony
-    </p>
-
-    <div class="hero-grid">
-
-       <div class="hero-grid">
-
-    <button class="hero-card" data-prompt="Help me write Python code.">
-        <span>💻</span>
-        <strong>Code Assistant</strong>
-        <small>Build applications, debug code, and learn programming.</small>
-    </button>
-
-    <button class="hero-card" data-prompt="Help me write a professional article.">
-        <span>✍️</span>
-        <strong>Writing Studio</strong>
-        <small>Create blogs, emails, reports, and professional documents.</small>
-    </button>
-
-    <button class="hero-card" data-prompt="Analyze this document for me.">
-        <span>📄</span>
-        <strong>Document AI</strong>
-        <small>Summarize PDFs, analyze documents, and extract key insights.</small>
-    </button>
-
-    <button class="hero-card" data-prompt="Let's brainstorm new business ideas.">
-        <span>💡</span>
-        <strong>Idea Lab</strong>
-        <small>Generate creative ideas, plans, and innovative solutions.</small>
-    </button>
-
-</div>
-
-    </div>
-
-</header>
-
-        <section id="messages" class="messages">
-
-            <div class="message bot">
-
-                <div class="avatar">
-                    ✦
-                </div>
-
-                <div class="bubble">
-
-                    <h3>Welcome!</h3>
-
-                    <p><strong>Think Clearly. Create Confidently.</strong></p>
-
-                    <p>
-                        I'm LYRCH AI. I can help you write,
-                        build, code, brainstorm, solve problems,
-                        and create amazing projects.
-                    </p>
-
-                </div>
-
-            </div>
-
-            {% if messages %}
-                {% for message in messages %}
-
-                    {% if message.sender == "user" %}
-
-                    <div class="message user">
-
-                        <div class="bubble">
-                            {{ message.content }}
-                        </div>
-
-                    </div>
-
-                    {% else %}
-
-                    <div class="message bot">
-
-                        <div class="avatar">
-                            ✦
-                        </div>
-
-                        <div class="bubble">
-                            {{ message.content }}
-                        </div>
-
-                    </div>
-
-                    {% endif %}
-
-                {% endfor %}
-            {% endif %}
-
+        <section class="hero">
         </section>
 
-        <footer class="chat-input">
+        <!-- Chat -->
 
-            <input
-                id="messageInput"
-                type="text"
-                placeholder="Ask LYRCH AI anything..."
-                autocomplete="off">
+        <section class="chat-area">
+        </section>
 
-            <button id="sendBtn">
-                ➜
-            </button>
+        <!-- Prompt -->
 
+        <footer class="prompt-area">
         </footer>
 
     </main>
 
 </div>
 
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
-
 </body>
-</html>
