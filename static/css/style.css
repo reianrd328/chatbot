@@ -1,111 +1,40 @@
-/* Main background */
-body {
-    margin: 0;
-    background: #202123;
-    color: #ECECF1;
-    font-family: Arial, Helvetica, sans-serif;
+/* ===========================
+   LYRCH AI v1.0
+   Think Clearly. Create Confidently.
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap');
+
+:root{
+    --bg:#0B1120;
+    --sidebar:#111827;
+    --panel:#1E293B;
+    --panel-light:#26364d;
+
+    --primary:#38BDF8;
+    --secondary:#7C3AED;
+    --success:#14B8A6;
+
+    --text:#F8FAFC;
+    --muted:#94A3B8;
+
+    --border:rgba(255,255,255,.08);
+
+    --radius:18px;
+    --transition:.25s ease;
 }
 
-/* Chat area */
-.chat-container {
-    background: #343541;
-    color: #ECECF1;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-/* Messages */
-.messages {
-    color: #ECECF1;
-}
-
-/* Message layout */
-.message {
-    display: flex;
-    margin: 20px 0;
-}
-
-.message.user {
-    justify-content: flex-end;
-}
-
-.message.bot {
-    justify-content: flex-start;
-}
-
-/* Chat bubbles */
-.bubble {
-    max-width: 70%;
-    padding: 14px 18px;
-    border-radius: 16px;
-    line-height: 1.6;
-    font-size: 16px;
-    word-wrap: break-word;
-}
-
-/* AI bubble */
-.message.bot .bubble {
-    background: #444654;
-    color: #FFFFFF;
-}
-
-/* User bubble */
-.message.user .bubble {
-    background: #10A37F;
-    color: #FFFFFF;
-}
-
-/* Sidebar */
-.sidebar {
-    background: #171717;
-    color: white;
-}
-
-.logo,
-.username,
-.conversation {
-    color: white;
-}
-
-.logout {
-    color: #4EA1FF;
-    text-decoration: none;
-}
-
-.logout:hover {
-    text-decoration: underline;
-}
-
-/* Input area */
-.chat-input {
-    background: #343541;
-    border-top: 1px solid #555;
-    padding: 15px;
-    display: flex;
-    gap: 10px;
-}
-
-.chat-input input {
-    flex: 1;
-    background: #40414F;
-    color: white;
-    border: 1px solid #565869;
-    border-radius: 8px;
-    padding: 14px;
-    font-size: 16px;
-}
-
-.chat-input input::placeholder {
-    color: #B4B4B4;
-}
-
-.chat-input button {
-    background: #10A37F;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 0 24px;
-    cursor: pointer;
-}
-
-.chat-input button:hover {
-    background: #0E8C6D;
+body{
+    font-family:'Inter',sans-serif;
+    background:
+        radial-gradient(circle at top,#172554 0%,#0B1120 55%);
+    color:var(--text);
+    height:100vh;
+    overflow:hidden;
 }
