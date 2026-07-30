@@ -124,21 +124,7 @@ function autoResize() {
 
 }
 
-/* ==========================================================
-    PLACE HOLDERS
-========================================================== */
 
-async function sendMessage() {
-
-    console.log("Send Message");
-
-}
-
-function startNewChat() {
-
-    console.log("New Chat");
-
-}
 
 /* ==========================================================
     SEND MESSAGE
@@ -152,7 +138,9 @@ async function sendMessage() {
 
     if (!message) return;
 
-    // Hide hero on first message
+    state.loading = true;
+
+    // First message
     if (!state.chatting) {
 
         state.chatting = true;
@@ -171,18 +159,59 @@ async function sendMessage() {
 
     autoResize();
 
-    // Placeholder until Flask API is connected
-    setTimeout(() => {
+    // Loading message
+    const loading = addLoadingMessage();
+
+    try {
+
+        const response = await fetch("/chat", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                message: message
+            })
+
+        });
+
+        const data = await response.json();
+
+        loading.remove();
+
+        if (data.reply) {
+
+            addMessage("assistant", data.reply);
+
+        } else if (data.error) {
+
+            addMessage("assistant", "❌ " + data.error);
+
+        } else {
+
+            addMessage("assistant", "Unknown response from server.");
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        loading.remove();
 
         addMessage(
             "assistant",
-            "Thinking... Flask API will be connected in Part 3."
+            "Unable to connect to the server."
         );
 
-    }, 500);
+    }
+
+    state.loading = false;
 
 }
-
 
 /* ==========================================================
     NEW CHAT
@@ -238,6 +267,31 @@ function addMessage(role, text) {
 function scrollToBottom() {
 
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
+}
+/* ==========================================================
+    LOADING MESSAGE
+========================================================== */
+
+function addLoadingMessage() {
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = "message assistant loading";
+
+    const bubble = document.createElement("div");
+
+    bubble.className = "bubble";
+
+    bubble.textContent = "Thinking...";
+
+    wrapper.appendChild(bubble);
+
+    chatMessages.appendChild(wrapper);
+
+    scrollToBottom();
+
+    return wrapper;
 
 }
 
