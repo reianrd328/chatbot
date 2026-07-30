@@ -589,7 +589,9 @@ body::after{
 
     backdrop-filter:blur(20px);
 
-    padding:35px;
+    padding:42px;
+
+    min-height:240px;
 
     text-align:left;
 
