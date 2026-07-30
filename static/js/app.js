@@ -159,6 +159,8 @@ function setupFeatureCards(){
 
 async function sendMessage(){
 
+   console.log("SEND BUTTON CLICKED");
+   
     if(state.sending){
 
         return;
