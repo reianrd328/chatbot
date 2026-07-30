@@ -1,13 +1,13 @@
-/* ==========================================
-   LYRCH AI
-   Frontend Controller v2
-========================================== */
+/* ==========================================================
+    LYRCH AI
+    Frontend Controller v2
+========================================================== */
 
 "use strict";
 
-/* ==========================================
-   DOM ELEMENTS
-========================================== */
+/* ==========================================================
+    DOM ELEMENTS
+========================================================== */
 
 const hero = document.getElementById("hero");
 const chatArea = document.getElementById("chatArea");
@@ -20,83 +20,59 @@ const newChatBtn = document.querySelector(".new-chat");
 
 const featureCards = document.querySelectorAll(".feature-card");
 
-
-/* ==========================================
-   APP STATE
-========================================== */
+/* ==========================================================
+    APP STATE
+========================================================== */
 
 const state = {
-
     chatting: false,
-
     loading: false
-
 };
 
+/* ==========================================================
+    INITIALIZE
+========================================================== */
 
-/* ==========================================
-   INITIALIZE
-========================================== */
+document.addEventListener("DOMContentLoaded", () => {
 
-init();
-
-function init() {
-
-    console.log("✓ Lyrch AI Initialized");
+    console.log("✓ Lyrch AI Loaded");
 
     bindEvents();
 
-}
+    autoResize();
 
+});
 
-/* ==========================================
-   EVENT LISTENERS
-========================================== */
+/* ==========================================================
+    EVENTS
+========================================================== */
 
 function bindEvents() {
 
-    console.log("Binding Events...");
+    if (sendBtn)
+        sendBtn.addEventListener("click", sendMessage);
 
-    console.log(sendBtn);
-    console.log(promptInput);
-    console.log(newChatBtn);
+    if (promptInput) {
 
-    if (!sendBtn || !promptInput || !newChatBtn) {
-        console.error("Some DOM elements were not found.");
-        return;
-    }
+        promptInput.addEventListener("keydown", (e) => {
 
-    sendBtn.addEventListener("click", sendMessage);
+            if (e.key === "Enter" && !e.shiftKey) {
 
-    promptInput.addEventListener("keydown", (event) => {
+                e.preventDefault();
 
-        if (event.key === "Enter" && !event.shiftKey) {
+                sendMessage();
 
-            event.preventDefault();
-
-            sendMessage();
-
-        }
-
-    });
-
-    newChatBtn.addEventListener("click", startNewChat);
-
-    featureCards.forEach(card => {
-
-        card.addEventListener("click", () => {
-
-            console.log("Feature card clicked");
+            }
 
         });
 
-    });
+        promptInput.addEventListener("input", autoResize);
 
-}
-    // New Chat
-    newChatBtn.addEventListener("click", startNewChat);
+    }
 
-    // Feature Cards
+    if (newChatBtn)
+        newChatBtn.addEventListener("click", startNewChat);
+
     featureCards.forEach(card => {
 
         card.addEventListener("click", () => {
@@ -123,6 +99,8 @@ function bindEvents() {
 
             }
 
+            autoResize();
+
             promptInput.focus();
 
         });
@@ -131,20 +109,33 @@ function bindEvents() {
 
 }
 
+/* ==========================================================
+    AUTO RESIZE
+========================================================== */
 
-/* ==========================================
-   PLACEHOLDERS
-   (implemented in next module)
-========================================== */
+function autoResize() {
+
+    if (!promptInput) return;
+
+    promptInput.style.height = "auto";
+
+    promptInput.style.height =
+        promptInput.scrollHeight + "px";
+
+}
+
+/* ==========================================================
+    PLACE HOLDERS
+========================================================== */
 
 async function sendMessage() {
 
-    console.log("SEND MESSAGE");
+    console.log("Send Message");
 
 }
 
 function startNewChat() {
 
-    console.log("NEW CHAT");
+    console.log("New Chat");
 
 }
