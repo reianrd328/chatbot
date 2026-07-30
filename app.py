@@ -80,15 +80,19 @@ def chat():
 
     except Exception as e:
 
-        app.logger.exception("Chat Error")
+    import traceback
 
-        return jsonify({
+    traceback.print_exc()
 
-            "success": False,
+    return jsonify({
 
-            "error": "Unable to generate response."
+        "success": False,
 
-        }), 500
+        "error": str(e),
+
+        "type": type(e).__name__
+
+    }), 500
 
 if __name__ == "__main__":
     with app.app_context():
