@@ -1064,5 +1064,102 @@ body::after{
         height:64px;
 
     }
+/*==========================================
+CHAT VISIBILITY
+==========================================*/
 
+.hero-visible{
+
+    display:flex;
+
+}
+
+.hero-hidden{
+
+    display:none;
+
+}
+
+.chat-hidden{
+
+    display:none;
+
+}
+
+.chat-visible{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+
+/*==========================================
+MESSAGES
+==========================================*/
+
+.message{
+
+    width:100%;
+
+    display:flex;
+
+    margin:16px 0;
+
+}
+
+.message.user{
+
+    justify-content:flex-end;
+
+}
+
+.bubble{
+
+    max-width:700px;
+
+    padding:18px 22px;
+
+    border-radius:22px;
+
+    background:linear-gradient(
+
+        135deg,
+
+        var(--cyan),
+
+        var(--violet)
+
+    );
+
+    color:white;
+
+    font-size:16px;
+
+    line-height:1.7;
+
+    animation:fadeBubble .25s ease;
+
+}
+
+@keyframes fadeBubble{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
 }
