@@ -16,6 +16,8 @@ const chatMessages = document.getElementById("chatMessages");
 const promptInput = document.getElementById("promptInput");
 
 const sendBtn = document.querySelector(".send-btn");
+
+console.log("Send Button =", sendBtn);
 const newChatBtn = document.querySelector(".new-chat");
 
 const featureCards = document.querySelectorAll(".feature-card");
@@ -50,7 +52,13 @@ document.addEventListener("DOMContentLoaded", () => {
 function bindEvents() {
 
     if (sendBtn)
-        sendBtn.addEventListener("click", sendMessage);
+        sendBtn.onclick = () => {
+
+    console.log("BUTTON CLICKED");
+
+    sendMessage();
+
+};
 
     if (promptInput) {
 
@@ -131,6 +139,8 @@ function autoResize() {
 ========================================================== */
 
 async function sendMessage() {
+
+    console.log("sendMessage() started");
 
     if (state.loading) return;
 
