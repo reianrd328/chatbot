@@ -63,26 +63,23 @@ def chat():
 
     try:
 
-       try:
+        reply = ask_ai(message)
 
-    reply = ask_ai(message)
+        return jsonify({
+            "success": True,
+            "reply": reply
+        })
 
-    return jsonify({
-        "reply": reply
-    })
+    except Exception as e:
 
-except Exception as e:
+        import traceback
+        traceback.print_exc()
 
-    import traceback
-
-    traceback.print_exc()
-
-    return jsonify({
-        "success": False,
-        "error": str(e),
-        "type": type(e).__name__
-    }), 500
-
+        return jsonify({
+            "success": False,
+            "error": str(e),
+            "type": type(e).__name__
+        }), 500
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
