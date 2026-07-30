@@ -171,6 +171,8 @@ async function sendMessage() {
 
             chatArea.classList.remove("chat-hidden");
             chatArea.classList.add("chat-visible");
+            console.log("Hero classes:", hero.className);
+            console.log("Chat classes:", chatArea.className);
 
         }
 
