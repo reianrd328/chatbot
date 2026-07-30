@@ -140,86 +140,51 @@ function autoResize() {
 
 async function sendMessage() {
 
-    console.log("sendMessage() started");
+    console.log("1. sendMessage started");
 
-    if (state.loading) return;
+    if (state.loading) {
+        console.log("2. Already loading");
+        return;
+    }
 
     const message = promptInput.value.trim();
 
-    if (!message) return;
+    console.log("3. Message =", message);
 
-    state.loading = true;
-
-    // First message
-    if (!state.chatting) {
-
-        state.chatting = true;
-
-        hero.classList.remove("hero-visible");
-        hero.classList.add("hero-hidden");
-
-        chatArea.classList.remove("chat-hidden");
-        chatArea.classList.add("chat-visible");
-
+    if (!message) {
+        console.log("4. Empty message");
+        return;
     }
-
-    addMessage("user", message);
-
-    promptInput.value = "";
-
-    autoResize();
-
-    // Loading message
-    const loading = addLoadingMessage();
 
     try {
 
-        const response = await fetch("/chat", {
+        console.log("5. Before hero");
 
-            method: "POST",
+        if (!state.chatting) {
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+            state.chatting = true;
 
-            body: JSON.stringify({
-                message: message
-            })
+            console.log("6. Hiding hero");
 
-        });
+            hero.classList.remove("hero-visible");
+            hero.classList.add("hero-hidden");
 
-        const data = await response.json();
-
-        loading.remove();
-
-        if (data.reply) {
-
-            addMessage("assistant", data.reply);
-
-        } else if (data.error) {
-
-            addMessage("assistant", "❌ " + data.error);
-
-        } else {
-
-            addMessage("assistant", "Unknown response from server.");
+            chatArea.classList.remove("chat-hidden");
+            chatArea.classList.add("chat-visible");
 
         }
 
-    } catch (error) {
+        console.log("7. Before addMessage");
 
-        console.error(error);
+        addMessage("user", message);
 
-        loading.remove();
+        console.log("8. After addMessage");
 
-        addMessage(
-            "assistant",
-            "Unable to connect to the server."
-        );
+    } catch (err) {
+
+        console.error("ERROR:", err);
 
     }
-
-    state.loading = false;
 
 }
 
