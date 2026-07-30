@@ -82,10 +82,36 @@ function sendMessage(){
     input.value="";
 
 
-    /*
-      Flask fetch()
-      will go here later
-    */
+   try {
+
+    const response = await fetch("/chat", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+
+            message: message
+
+        })
+
+    });
+
+    const data = await response.json();
+
+    addAIMessage(data.reply);
+
+}
+catch(error){
+
+    addAIMessage("⚠ Unable to connect to Lyrch AI.");
+
+    console.error(error);
+
+}
 
 
 }
