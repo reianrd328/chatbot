@@ -1,75 +1,133 @@
-const input = document.getElementById("messageInput");
-const sendBtn = document.getElementById("sendBtn");
-const messages = document.getElementById("messages");
+/* ===========================================
+   LYRCH AI
+   Frontend Controller
+=========================================== */
 
-function scrollBottom() {
-    messages.scrollTop = messages.scrollHeight;
-}
+const hero = document.getElementById("hero");
+const chatArea = document.getElementById("chatArea");
 
-function addUserMessage(text) {
-    messages.innerHTML += `
-        <div class="message user">
-            <div class="bubble">${text}</div>
-        </div>
-    `;
-    scrollBottom();
-}
+const input = document.getElementById("promptInput");
 
-function addBotMessage(text) {
-    messages.innerHTML += `
-        <div class="message bot">
-            <div class="avatar">🤖</div>
-            <div class="bubble">${text}</div>
-        </div>
-    `;
-    scrollBottom();
-}
+const sendBtn = document.querySelector(".send-btn");
 
-async function sendMessage() {
+const featureCards = document.querySelectorAll(".feature-card");
+
+
+/* ===========================================
+   Suggested prompts
+=========================================== */
+
+const prompts = [
+
+"Help me write Python code.",
+
+"Write a professional email.",
+
+"Summarize this document.",
+
+"Brainstorm startup ideas."
+
+];
+
+
+/* ===========================================
+   Feature Cards
+=========================================== */
+
+featureCards.forEach((card,index)=>{
+
+    card.addEventListener("click",()=>{
+
+        input.value = prompts[index];
+
+        input.focus();
+
+    });
+
+});
+
+
+/* ===========================================
+   Send
+=========================================== */
+
+sendBtn.addEventListener("click",sendMessage);
+
+input.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Enter"){
+
+        sendMessage();
+
+    }
+
+});
+
+
+/* ===========================================
+   Main
+=========================================== */
+
+function sendMessage(){
 
     const message = input.value.trim();
 
-    if (!message) return;
+    if(message==="") return;
+
+
+    showChat();
 
     addUserMessage(message);
 
-    input.value = "";
+    input.value="";
 
-    addBotMessage("Thinking...");
 
-    try {
+    /*
+      Flask fetch()
+      will go here later
+    */
 
-        const response = await fetch("/chat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: message
-            })
-        });
 
-        const data = await response.json();
-
-        const bubbles = document.querySelectorAll(".message.bot .bubble");
-
-        bubbles[bubbles.length - 1].innerText = data.reply;
-
-        scrollBottom();
-
-    } catch (err) {
-
-        const bubbles = document.querySelectorAll(".message.bot .bubble");
-
-        bubbles[bubbles.length - 1].innerText = "Error connecting to AI.";
-
-    }
 }
 
-sendBtn.addEventListener("click", sendMessage);
 
-input.addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-        sendMessage();
-    }
-});
+/* ===========================================
+   Show Chat
+=========================================== */
+
+function showChat(){
+
+    hero.classList.add("hero-hidden");
+
+    chatArea.classList.remove("chat-hidden");
+
+    chatArea.classList.add("chat-visible");
+
+}
+
+
+/* ===========================================
+   User Message
+=========================================== */
+
+function addUserMessage(text){
+
+    const bubble=document.createElement("div");
+
+    bubble.className="message user";
+
+    bubble.innerHTML=`
+
+        <div class="bubble">
+
+            ${text}
+
+        </div>
+
+    `;
+
+    chatArea.appendChild(bubble);
+
+    chatArea.scrollTop=chatArea.scrollHeight;
+
+}
