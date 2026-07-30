@@ -425,3 +425,321 @@ body::after{
     padding:40px;
 
 }
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:40px 20px;
+
+    animation:fadeUp .8s ease;
+
+}
+
+
+/* =========================================================
+   HERO LOGO
+========================================================= */
+
+.hero-logo{
+
+    width:110px;
+
+    height:110px;
+
+    border-radius:30px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:30px;
+
+    background:linear-gradient(
+        135deg,
+        var(--cyan),
+        var(--violet)
+    );
+
+    color:white;
+
+    font-size:52px;
+
+    box-shadow:
+        0 0 35px rgba(56,189,248,.25),
+        0 0 60px rgba(124,58,237,.18);
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.hero h1{
+
+    font-family:'Space Grotesk',sans-serif;
+
+    font-size:64px;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+    letter-spacing:-2px;
+
+}
+
+.hero h1 span{
+
+    background:linear-gradient(
+        135deg,
+        var(--cyan),
+        var(--violet)
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+
+/* =========================================================
+   TAGLINE
+========================================================= */
+
+.hero h2{
+
+    font-size:30px;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.hero>p{
+
+    color:var(--muted);
+
+    font-size:18px;
+
+    margin-bottom:60px;
+
+}
+
+
+/* =========================================================
+   FEATURE GRID
+========================================================= */
+
+.feature-grid{
+
+    width:100%;
+
+    max-width:920px;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:28px;
+
+}
+
+
+/* =========================================================
+   FEATURE CARD
+========================================================= */
+
+.feature-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:24px;
+
+    backdrop-filter:blur(20px);
+
+    padding:35px;
+
+    text-align:left;
+
+    transition:.35s;
+
+    cursor:pointer;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+/* =========================================================
+   GLOW EFFECT
+========================================================= */
+
+.feature-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    background:rgba(56,189,248,.12);
+
+    top:-120px;
+
+    right:-120px;
+
+    opacity:0;
+
+    transition:.35s;
+
+}
+
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
+
+.feature-card:hover{
+
+    transform:translateY(-8px);
+
+    background:var(--card-hover);
+
+    border-color:rgba(56,189,248,.30);
+
+    box-shadow:
+
+        0 20px 45px rgba(0,0,0,.30),
+
+        0 0 30px rgba(56,189,248,.12);
+
+}
+
+.feature-card:hover::before{
+
+    opacity:1;
+
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.feature-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:24px;
+
+    font-size:34px;
+
+    background:linear-gradient(
+
+        135deg,
+
+        rgba(56,189,248,.18),
+
+        rgba(124,58,237,.18)
+
+    );
+
+}
+
+
+/* =========================================================
+   CARD TITLE
+========================================================= */
+
+.feature-card h3{
+
+    font-family:'Space Grotesk',sans-serif;
+
+    font-size:26px;
+
+    margin-bottom:12px;
+
+}
+
+
+/* =========================================================
+   CARD DESCRIPTION
+========================================================= */
+
+.feature-card p{
+
+    color:var(--muted);
+
+    line-height:1.8;
+
+    font-size:16px;
+
+}
+
+
+/* =========================================================
+   FADE ANIMATION
+========================================================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
