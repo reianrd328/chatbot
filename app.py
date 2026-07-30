@@ -45,37 +45,50 @@ def dashboard():
 @login_required
 def chat():
 
-    data = request.get_json()
+    data = request.get_json(silent=True)
 
     if not data:
         return jsonify({
-            "reply": "No message received."
+            "success": False,
+            "error": "Invalid request."
         }), 400
 
     message = data.get("message", "").strip()
 
-    if message == "":
+    if not message:
         return jsonify({
-            "reply": "Please enter a message."
+            "success": False,
+            "error": "Message cannot be empty."
         }), 400
 
     try:
 
         reply = ask_ai(message)
 
+        # Future:
+        # save_message(current_user.id, message, reply)
+
         return jsonify({
-            "reply": reply
+
+            "success": True,
+
+            "reply": reply,
+
+            "conversation_id": None
+
         })
 
     except Exception as e:
 
-        import traceback
-        traceback.print_exc()
+        app.logger.exception("Chat Error")
 
         return jsonify({
-            "reply": str(e)
-        }), 500
 
+            "success": False,
+
+            "error": "Unable to generate response."
+
+        }), 500
 
 if __name__ == "__main__":
     with app.app_context():
