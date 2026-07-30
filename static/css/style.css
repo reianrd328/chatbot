@@ -1180,5 +1180,93 @@ MESSAGES
         transform:translateY(0);
 
     }
+   /* =======================================
+CHAT TRANSITION
+======================================= */
+
+.hero-hidden{
+    display:none;
+}
+
+.chat-visible{
+    display:flex;
+}
+
+.chat-hidden{
+    display:none;
+}
+
+/* =======================================
+MESSAGES
+======================================= */
+
+.chat-messages{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:20px;
+
+    width:100%;
+
+    max-width:900px;
+
+    margin:auto;
+
+    padding:30px;
+
+    overflow-y:auto;
+
+}
+
+.message{
+
+    display:flex;
+
+}
+
+.message.user{
+
+    justify-content:flex-end;
+
+}
+
+.message.assistant{
+
+    justify-content:flex-start;
+
+}
+
+.bubble{
+
+    max-width:70%;
+
+    padding:16px 20px;
+
+    border-radius:18px;
+
+    line-height:1.6;
+
+    font-size:15px;
+
+}
+
+.message.user .bubble{
+
+    background:#3b82f6;
+
+    color:white;
+
+}
+
+.message.assistant .bubble{
+
+    background:#202020;
+
+    color:white;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
 
 }
