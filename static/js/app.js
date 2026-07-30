@@ -139,3 +139,105 @@ function startNewChat() {
     console.log("New Chat");
 
 }
+
+/* ==========================================================
+    SEND MESSAGE
+========================================================== */
+
+async function sendMessage() {
+
+    if (state.loading) return;
+
+    const message = promptInput.value.trim();
+
+    if (!message) return;
+
+    // Hide hero on first message
+    if (!state.chatting) {
+
+        state.chatting = true;
+
+        hero.classList.remove("hero-visible");
+        hero.classList.add("hero-hidden");
+
+        chatArea.classList.remove("chat-hidden");
+        chatArea.classList.add("chat-visible");
+
+    }
+
+    addMessage("user", message);
+
+    promptInput.value = "";
+
+    autoResize();
+
+    // Placeholder until Flask API is connected
+    setTimeout(() => {
+
+        addMessage(
+            "assistant",
+            "Thinking... Flask API will be connected in Part 3."
+        );
+
+    }, 500);
+
+}
+
+
+/* ==========================================================
+    NEW CHAT
+========================================================== */
+
+function startNewChat() {
+
+    state.chatting = false;
+
+    chatMessages.innerHTML = "";
+
+    hero.classList.remove("hero-hidden");
+    hero.classList.add("hero-visible");
+
+    chatArea.classList.remove("chat-visible");
+    chatArea.classList.add("chat-hidden");
+
+    promptInput.value = "";
+
+    autoResize();
+
+}
+
+/* ==========================================================
+    MESSAGE RENDERER
+========================================================== */
+
+function addMessage(role, text) {
+
+    const wrapper = document.createElement("div");
+
+    wrapper.className = `message ${role}`;
+
+    const bubble = document.createElement("div");
+
+    bubble.className = "bubble";
+
+    bubble.textContent = text;
+
+    wrapper.appendChild(bubble);
+
+    chatMessages.appendChild(wrapper);
+
+    scrollToBottom();
+
+}
+
+
+/* ==========================================================
+    SCROLL
+========================================================== */
+
+function scrollToBottom() {
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+}
+
