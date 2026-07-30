@@ -455,8 +455,6 @@ body::after{
    HERO LOGO
 ========================================================= */
 
-.hero-logo{
-
    .hero-logo{
 
     width:140px;
@@ -826,7 +824,13 @@ body::after{
    INPUT
 ========================================================= */
 
-.prompt-box input{
+.prompt-box textarea{
+
+   resize:none;
+
+    overflow:hidden;
+
+    padding-top:20px;
 
     flex:1;
 
@@ -846,11 +850,13 @@ body::after{
 
 }
 
-.prompt-box input::placeholder{
+.prompt-box textarea::placeholder{
 
     color:var(--muted);
 
 }
+
+
 
 
 /* =========================================================
