@@ -100,18 +100,13 @@ function setupEventListeners(){
 
     if(sendBtn){
 
-        sendBtn.addEventListener("click", sendMessage);
+        sendBtn.addEventListener("click", () => {
 
-    }
+    console.log("SEND BUTTON WORKS");
 
-    if(input){
+    sendMessage();
 
-        input.addEventListener("keydown", handleInputKeys);
-
-    }
-
-}
-
+});
 
 /* ===========================================
    KEYBOARD
