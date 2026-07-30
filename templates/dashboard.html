@@ -160,16 +160,19 @@
 
 
 
-        <!-- ===================== -->
-        <!-- Chat -->
-        <!-- ===================== -->
+       <!-- ===================== -->
+<!-- Chat Area -->
+<!-- ===================== -->
 
-        <section id="chatArea" class="chat-area chat-hidden">
+<section id="chatArea" class="chat-area chat-hidden">
 
-            <!-- Messages will appear here -->
+    <div id="chatMessages" class="chat-messages">
 
-        </section>
+        <!-- User & AI messages appear here -->
 
+    </div>
+
+</section>
 
 
         <!-- ===================== -->
@@ -186,12 +189,11 @@
 
                 </button>
 
-                <input
-                    id="promptInput"
-                    type="text"
-                    placeholder="Ask Lyrch AI anything..."
-                >
-
+               <textarea
+                id="promptInput"
+                rows="1"
+                placeholder="Ask Lyrch AI anything..."
+                ></textarea>
                 <button class="voice-btn">
 
                     🎤
