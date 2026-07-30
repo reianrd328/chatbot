@@ -760,14 +760,17 @@ body::after{
 
     flex:1;
 
-    overflow-y:auto;
-
-    padding:20px 10%;
-
     display:none;
 
-}
+    width:100%;
 
+    height:100%;
+
+    overflow-y:auto;
+
+    padding:30px;
+
+}
 
 /* =========================================================
 
@@ -1108,12 +1111,11 @@ CHAT VISIBILITY
 
 .chat-visible{
 
-    display:flex;
+    display:flex !important;
 
     flex-direction:column;
 
 }
-
 
 /*==========================================
 MESSAGES
@@ -1202,20 +1204,19 @@ MESSAGES
 
 .chat-messages{
 
-    display:flex;
-    flex-direction:column;
-
-    gap:20px;
+    .chat-messages{
 
     width:100%;
 
     max-width:900px;
 
-    margin:auto;
+    margin:0 auto;
 
-    padding:30px;
+    display:flex;
 
-    overflow-y:auto;
+    flex-direction:column;
+
+    gap:18px;
 
 }
 
@@ -1253,12 +1254,11 @@ MESSAGES
 
 .message.user .bubble{
 
-    background:#3b82f6;
+    background:red;
 
     color:white;
 
 }
-
 .message.assistant .bubble{
 
     background:#202020;
