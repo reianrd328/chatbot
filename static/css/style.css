@@ -457,9 +457,14 @@ body::after{
 
 .hero-logo{
 
-    width:110px;
+   .hero-logo{
 
-    height:110px;
+    width:140px;
+    height:140px;
+
+    font-size:62px;
+
+    margin-bottom:36px;
 
     border-radius:30px;
 
