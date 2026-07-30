@@ -40,26 +40,19 @@ def dashboard():
         messages=[]
     )
 
-
 @app.route("/chat", methods=["POST"])
 @login_required
 def chat():
 
-    data = request.get_json(silent=True)
+    data = request.get_json()
 
-    if not data:
-        return jsonify({
-            "success": False,
-            "error": "Invalid request."
-        }), 400
+    message = data.get("message")
 
-    message = data.get("message", "").strip()
+    reply = ask_ai(message)
 
-    if not message:
-        return jsonify({
-            "success": False,
-            "error": "Message cannot be empty."
-        }), 400
+    return jsonify({
+        "reply": reply
+    })
 
     try:
 
