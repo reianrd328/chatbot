@@ -1,50 +1,31 @@
-from openai import OpenAI
-from config import Config
+def ask_ai(message):
 
-client = OpenAI(
-    api_key=Config.API_KEY,
-    base_url=Config.BASE_URL
-)
+    try:
 
-SYSTEM_PROMPT = """
-You are Lyrch AI.
+        response = client.chat.completions.create(
+            model="auto",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are Lyrch AI. "
+                        "Reply in the same language as the user."
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": message
+                }
+            ]
+        )
 
-You are an intelligent AI assistant designed to help users think clearly,
-create confidently, solve problems, write code, explain concepts,
-brainstorm ideas, and answer questions.
+        return response.choices[0].message.content
 
-Rules:
+    except Exception as e:
 
-- Reply in the same language as the user.
-- Format code inside Markdown code blocks.
-- Use bullet points when appropriate.
-- Be concise unless the user asks for detail.
-- If you don't know something, say so instead of making it up.
-- Maintain a professional, friendly tone.
-"""
+        print("========== AI ERROR ==========")
+        print(type(e).__name__)
+        print(str(e))
+        print("==============================")
 
-def ask_ai(message, history=None):
-
-    messages = [
-        {
-            "role": "system",
-            "content": SYSTEM_PROMPT
-        }
-    ]
-
-    if history:
-        messages.extend(history)
-
-    messages.append({
-        "role": "user",
-        "content": message
-    })
-
-    response = client.chat.completions.create(
-        model="auto",
-        messages=messages,
-        temperature=0.7,
-        max_tokens=2048
-    )
-
-    return response.choices[0].message.content.strip()
+        raise
