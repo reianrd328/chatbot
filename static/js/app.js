@@ -216,6 +216,10 @@ function startNewChat() {
 
 function addMessage(role, text) {
 
+    console.log("addMessage called");
+
+    console.log(chatMessages);
+
     const wrapper = document.createElement("div");
 
     wrapper.className = `message ${role}`;
@@ -230,11 +234,9 @@ function addMessage(role, text) {
 
     chatMessages.appendChild(wrapper);
 
-    scrollToBottom();
+    console.log("message added");
 
 }
-
-
 /* ==========================================================
     SCROLL
 ========================================================== */
