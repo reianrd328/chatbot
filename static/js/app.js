@@ -38,7 +38,7 @@ const state = {
    INITIALIZE
 ========================================== */
 
-document.addEventListener("DOMContentLoaded", init);
+init();
 
 function init() {
 
@@ -55,10 +55,19 @@ function init() {
 
 function bindEvents() {
 
-    // Send button
+    console.log("Binding Events...");
+
+    console.log(sendBtn);
+    console.log(promptInput);
+    console.log(newChatBtn);
+
+    if (!sendBtn || !promptInput || !newChatBtn) {
+        console.error("Some DOM elements were not found.");
+        return;
+    }
+
     sendBtn.addEventListener("click", sendMessage);
 
-    // Enter key
     promptInput.addEventListener("keydown", (event) => {
 
         if (event.key === "Enter" && !event.shiftKey) {
@@ -71,6 +80,19 @@ function bindEvents() {
 
     });
 
+    newChatBtn.addEventListener("click", startNewChat);
+
+    featureCards.forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            console.log("Feature card clicked");
+
+        });
+
+    });
+
+}
     // New Chat
     newChatBtn.addEventListener("click", startNewChat);
 
