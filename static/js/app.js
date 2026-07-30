@@ -68,7 +68,7 @@ input.addEventListener("keydown",(e)=>{
    Main
 =========================================== */
 
-function sendMessage(){
+async function sendMessage(){
 
     const message = input.value.trim();
 
