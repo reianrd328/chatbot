@@ -233,6 +233,7 @@ function addMessage(role, text) {
     wrapper.appendChild(bubble);
 
     chatMessages.appendChild(wrapper);
+    console.log(chatMessages.innerHTML);
 
     console.log("message added");
 
