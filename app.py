@@ -63,35 +63,24 @@ def chat():
 
     try:
 
-        reply = ask_ai(message)
+       try:
 
-        # Future:
-        # save_message(current_user.id, message, reply)
+    reply = ask_ai(message)
 
-        return jsonify({
+    return jsonify({
+        "reply": reply
+    })
 
-            "success": True,
-
-            "reply": reply,
-
-            "conversation_id": None
-
-        })
-
-    except Exception as e:
+except Exception as e:
 
     import traceback
 
     traceback.print_exc()
 
     return jsonify({
-
         "success": False,
-
         "error": str(e),
-
         "type": type(e).__name__
-
     }), 500
 
 if __name__ == "__main__":
