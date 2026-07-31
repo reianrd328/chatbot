@@ -338,10 +338,11 @@ body::after{
    CHAT HISTORY
 ========================================================= */
 
-.chat-history {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 4px;
+.chat-history{
+    flex:1;
+    overflow-y:auto;
+    margin-top:20px;
+    width:100%;
 }
 .chat-history h4{
 
@@ -1283,38 +1284,33 @@ MESSAGES
     display:flex;
     align-items:center;
     width:100%;
-    min-height:42px;
 
-    padding:10px 14px;
-
+    background:transparent;
     border:none;
     border-radius:10px;
 
-    background:transparent;
+    padding:10px 12px;
 
-    color:#d6dbe8;
-
-    cursor:pointer;
+    color:#d7dbe8;
 
     font-size:13px;
     font-weight:500;
 
-    text-align:left;
+    cursor:pointer;
+
+    transition:.2s;
 
     overflow:hidden;
     white-space:nowrap;
     text-overflow:ellipsis;
-
-    transition:.2s;
 }
 
 .chat-item:hover{
-    background:#1d2b3f;
+    background:#1f2937;
 }
 
 .chat-item.active{
-    background:linear-gradient(90deg,#4F8CFF,#7B61FF);
-    color:white;
+    background:#2b3d55;
 }
 @keyframes pulse{
 
@@ -1325,9 +1321,5 @@ MESSAGES
     100%{opacity:.3;}
 
 }
-   .chat-item {
-    background: red !important;
-    color: white !important;
-    font-size: 20px !important;
-}
+   
 
