@@ -44,6 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     autoResize();
 
+
+
 });
 
 /* ==========================================================
@@ -147,7 +149,7 @@ async function sendMessage() {
         console.log("2. Already loading");
         return;
     }
-
+    console.log("Textarea value:", promptInput.value);
     const message = promptInput.value.trim();
 
     console.log("3. Message =", message);
