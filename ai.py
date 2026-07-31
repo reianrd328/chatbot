@@ -1,4 +1,5 @@
 from openai import OpenAI
+from config import Config
 import time
 
 client = OpenAI(
