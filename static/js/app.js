@@ -143,56 +143,83 @@ function autoResize() {
 
 async function sendMessage() {
 
-    console.log("1. sendMessage started");
+    if (state.loading) return;
 
-    if (state.loading) {
-        console.log("2. Already loading");
-        return;
-    }
-    console.log("Textarea value:", promptInput.value);
     const message = promptInput.value.trim();
 
-    console.log("3. Message =", message);
+    if (!message) return;
 
-    if (!message) {
-        console.log("4. Empty message");
-        return;
+    state.loading = true;
+
+    // Hide hero only once
+    if (!state.chatting) {
+
+        state.chatting = true;
+
+        hero.classList.remove("hero-visible");
+        hero.classList.add("hero-hidden");
+
+        chatArea.classList.remove("chat-hidden");
+        chatArea.classList.add("chat-visible");
     }
+
+    // Show user message
+    addMessage("user", message);
+
+    // Clear input
+    promptInput.value = "";
+    autoResize();
+
+    // Loading indicator
+    const loading = addLoadingMessage();
 
     try {
 
-        console.log("5. Before hero");
+        const response = await fetch("/chat", {
 
-        if (!state.chatting) {
+            method: "POST",
 
-            state.chatting = true;
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-            console.log("6. Hiding hero");
+            body: JSON.stringify({
+                message: message
+            })
 
-            hero.classList.remove("hero-visible");
-            hero.classList.add("hero-hidden");
+        });
 
-            chatArea.classList.remove("chat-hidden");
-            chatArea.classList.add("chat-visible");
-            console.log("Hero classes:", hero.className);
-            console.log("Chat classes:", chatArea.className);
-
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
         }
 
-        console.log("7. Before addMessage");
+        const data = await response.json();
 
-        addMessage("user", message);
+        loading.remove();
 
-        console.log("8. After addMessage");
+        addMessage(
+            "assistant",
+            data.reply || "No response received."
+        );
 
     } catch (err) {
 
-        console.error("ERROR:", err);
+        console.error(err);
+
+        loading.remove();
+
+        addMessage(
+            "assistant",
+            "❌ Unable to contact the AI server."
+        );
+
+    } finally {
+
+        state.loading = false;
 
     }
 
 }
-
 /* ==========================================================
     NEW CHAT
 ========================================================== */
