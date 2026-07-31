@@ -14,18 +14,24 @@ Reply in the same language as the user.
 
 def ask_ai(message):
 
-    response = client.chat.completions.create(
-        model="deepseek-chat",
-        messages=[
-            {
-                "role":"system",
-                "content":SYSTEM_PROMPT
-            },
-            {
-                "role":"user",
-                "content":message
-            }
-        ]
-    )
+    try:
 
-    return response.choices[0].message.content
+        response = client.chat.completions.create(
+            model="YOUR_MODEL_NAME",
+            messages=[
+                {
+                    "role": "system",
+                    "content": SYSTEM_PROMPT
+                },
+                {
+                    "role": "user",
+                    "content": message
+                }
+            ]
+        )
+
+        return response.choices[0].message.content
+
+    except Exception as e:
+        print("AI ERROR:", repr(e))
+        raise
