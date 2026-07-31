@@ -1316,4 +1316,9 @@ MESSAGES
     100%{opacity:.3;}
 
 }
+   .chat-item {
+    background: red !important;
+    color: white !important;
+    font-size: 20px !important;
+}
 
