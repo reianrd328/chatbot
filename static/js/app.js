@@ -282,7 +282,7 @@ async function loadChats() {
 
             item.className = "chat-item";
 
-            item.textContent = chat.title;
+            item.innerHTML = `💬 ${chat.title}`;
 
             item.onclick = () => loadConversation(chat.id);
 
