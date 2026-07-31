@@ -5,17 +5,43 @@ from datetime import datetime
 db = SQLAlchemy()
 
 
+# ==========================
+# User Model
+# ==========================
 class User(UserMixin, db.Model):
 
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
 
-    username = db.Column(db.String(80), unique=True)
+    username = db.Column(
+        db.String(80),
+        unique=True,
+        nullable=False
+    )
 
-    password = db.Column(db.String(255))
+    password = db.Column(
+        db.String(255),
+        nullable=False
+    )
+
+    created_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
+    )
+
+    # Relationship
+    chats = db.relationship(
+        "Chat",
+        backref="user",
+        lazy=True,
+        cascade="all, delete-orphan"
+    )
 
 
+# ==========================
+# Chat Model
+# ==========================
 class Chat(db.Model):
 
     __tablename__ = "chats"
@@ -28,7 +54,10 @@ class Chat(db.Model):
         nullable=False
     )
 
-    title = db.Column(db.String(255))
+    title = db.Column(
+        db.String(255),
+        default="New Chat"
+    )
 
     created_at = db.Column(
         db.DateTime,
@@ -41,14 +70,19 @@ class Chat(db.Model):
         onupdate=datetime.utcnow
     )
 
+    # Relationship
     messages = db.relationship(
         "Message",
         backref="chat",
         lazy=True,
-        cascade="all, delete"
+        cascade="all, delete-orphan",
+        order_by="Message.created_at"
     )
 
 
+# ==========================
+# Message Model
+# ==========================
 class Message(db.Model):
 
     __tablename__ = "messages"
@@ -61,9 +95,15 @@ class Message(db.Model):
         nullable=False
     )
 
-    role = db.Column(db.String(20))
+    role = db.Column(
+        db.String(20),
+        nullable=False
+    )
 
-    content = db.Column(db.Text)
+    content = db.Column(
+        db.Text,
+        nullable=False
+    )
 
     created_at = db.Column(
         db.DateTime,
