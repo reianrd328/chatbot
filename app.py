@@ -72,6 +72,29 @@ def chat():
             "error": str(e),
             "type": type(e).__name__
         }), 500
+
+@app.route("/chat/new", methods=["POST"])
+@login_required
+def new_chat():
+
+    chat = Chat(
+
+        user_id=current_user.id,
+
+        title="New Chat"
+
+    )
+
+    db.session.add(chat)
+
+    db.session.commit()
+
+    return jsonify({
+
+        "chat_id": chat.id
+
+    })
+    
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
