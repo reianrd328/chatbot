@@ -20,6 +20,7 @@ const sendBtn = document.querySelector(".send-btn");
 
 console.log("Send Button =", sendBtn);
 const newChatBtn = document.querySelector(".new-chat");
+const chatList = document.getElementById("chatList");
 
 const featureCards = document.querySelectorAll(".feature-card");
 
@@ -47,10 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     autoResize();
 
-
+    loadChats();
 
 });
-
 /* ==========================================================
     EVENTS
 ========================================================== */
@@ -201,8 +201,14 @@ async function sendMessage() {
         }
 
         const data = await response.json();
-         if (data.chat_id) {
+         const isNewChat = state.currentChatId === null;
+
+if (data.chat_id) {
     state.currentChatId = data.chat_id;
+}
+
+if (isNewChat) {
+    loadChats();
 }
 
 console.log("Current Chat:", state.currentChatId);
@@ -251,9 +257,88 @@ function startNewChat() {
     promptInput.value = "";
 
     autoResize();
+loadChats();
+}
+
+/* ==========================================================
+    LOAD CHAT LIST
+========================================================== */
+
+async function loadChats() {
+
+    if (!chatList) return;
+
+    try {
+
+        const response = await fetch("/chats");
+
+        const chats = await response.json();
+
+        chatList.innerHTML = "";
+
+        chats.forEach(chat => {
+
+            const item = document.createElement("button");
+
+            item.className = "chat-item";
+
+            item.textContent = chat.title;
+
+            item.onclick = () => loadConversation(chat.id);
+
+            chatList.appendChild(item);
+
+        });
+
+    } catch (err) {
+
+        console.error("Unable to load chats:", err);
+
+    }
 
 }
 
+/* ==========================================================
+    LOAD ONE CONVERSATION
+========================================================== */
+
+async function loadConversation(chatId) {
+
+    try {
+
+        const response = await fetch(`/chat/${chatId}`);
+
+        const data = await response.json();
+
+        if (!data.success) return;
+
+        state.currentChatId = chatId;
+
+        state.chatting = true;
+
+        hero.classList.remove("hero-visible");
+        hero.classList.add("hero-hidden");
+
+        chatArea.classList.remove("chat-hidden");
+        chatArea.classList.add("chat-visible");
+
+        chatMessages.innerHTML = "";
+
+        data.messages.forEach(msg => {
+
+            addMessage(msg.role, msg.content);
+
+        });
+
+        scrollToBottom();
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
+
+}
 /* ==========================================================
     MESSAGE RENDERER
 ========================================================== */
