@@ -46,14 +46,13 @@ def chat():
 
     data = request.get_json()
 
-    message = data.get("message")
+    message = data.get("message", "")
 
     reply = ask_ai(message)
 
     return jsonify({
         "reply": reply
     })
-
     try:
 
         reply = ask_ai(message)
