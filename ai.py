@@ -3,7 +3,8 @@ from config import Config
 
 client = OpenAI(
     api_key=Config.API_KEY,
-    base_url=Config.BASE_URL
+    base_url=Config.BASE_URL,
+    timeout=30
 )
 
 SYSTEM_PROMPT = """
