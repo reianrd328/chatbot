@@ -1056,7 +1056,13 @@ body::after{
         font-size:44px;
 
     }
+      
+    .prompt-box{
 
+        height:64px;
+    } 
+    }
+/*======
     .hero h1{
 
         font-size:42px;
@@ -1074,13 +1080,7 @@ body::after{
         font-size:16px;
 
     }
-
-    .prompt-box{
-
-        height:64px;
-
-    }
-/*==========================================
+====================================
 CHAT VISIBILITY
 ==========================================*/
 
@@ -1161,20 +1161,16 @@ MESSAGES
 @keyframes fadeBubble{
 
     from{
-
         opacity:0;
-
         transform:translateY(20px);
-
     }
 
     to{
-
         opacity:1;
-
         transform:translateY(0);
-
     }
+
+}
    /* =======================================
 CHAT TRANSITION
 ======================================= */
@@ -1197,8 +1193,6 @@ MESSAGES
 
 .chat-messages{
 
-    .chat-messages{
-
     width:100%;
 
     max-width:900px;
@@ -1212,7 +1206,6 @@ MESSAGES
     gap:18px;
 
 }
-
 .message{
 
     display:flex;
