@@ -48,14 +48,11 @@ def dashboard():
 def chat():
 
     data = request.get_json()
-
     message = data.get("message", "")
-
     chat_id = data.get("chat_id")
 
     try:
 
-        # First message of a conversation
         if not chat_id:
 
             chat = Chat(
@@ -69,15 +66,15 @@ def chat():
         else:
 
             chat = Chat.query.filter_by(
-    id=chat_id,
-    user_id=current_user.id
-).first()
+                id=chat_id,
+                user_id=current_user.id
+            ).first()
 
-if not chat:
-    return jsonify({
-        "success": False,
-        "error": "Chat not found."
-    }), 404
+            if not chat:
+                return jsonify({
+                    "success": False,
+                    "error": "Chat not found"
+                }), 404
 
         # Save user message
         db.session.add(
@@ -90,7 +87,7 @@ if not chat:
 
         reply = ask_ai(message)
 
-        # Save AI message
+        # Save AI reply
         db.session.add(
             Message(
                 chat_id=chat.id,
