@@ -101,31 +101,35 @@ def chat():
                     "error": "Chat not found"
                 }), 404
 
-        # Save user message
-        # Save user message
-db.session.add(
-    Message(
-        chat_id=chat.id,
-        role="user",
-        content=message
-    )
-)
+                # Save user message
+        db.session.add(
+            Message(
+                chat_id=chat.id,
+                role="user",
+                content=message
+            )
+        )
 
-# Automatically rename new chats using the first user message
-if chat.title == "New Chat":
-    chat.title = message.strip()[:40]
+        # Automatically rename a new chat
+        if chat.title == "New Chat":
+            title = message.strip()
 
-# Ask AI
-reply = ask_ai(message)
+            if len(title) > 40:
+                title = title[:40] + "..."
 
-# Save AI response
-db.session.add(
-    Message(
-        chat_id=chat.id,
-        role="assistant",
-        content=reply
-    )
-)
+            chat.title = title
+
+        # Ask AI
+        reply = ask_ai(message)
+
+        # Save AI reply
+        db.session.add(
+            Message(
+                chat_id=chat.id,
+                role="assistant",
+                content=reply
+            )
+        )
 
         db.session.commit()
 
