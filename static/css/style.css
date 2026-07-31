@@ -338,14 +338,11 @@ body::after{
    CHAT HISTORY
 ========================================================= */
 
-.chat-history{
-
-    flex:1;
-
-    overflow:auto;
-
+.chat-history {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
 }
-
 .chat-history h4{
 
     color:var(--muted);
@@ -1275,38 +1272,50 @@ MESSAGES
    Chat History
 ========================== */
 
-.chat-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 12px;
+.chat-list{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    width:100%;
 }
 
-.chat-item {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    background: transparent;
-    color: #d7dbe8;
-    text-align: left;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all .2s ease;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.chat-item{
+    display:flex;
+    align-items:center;
+    width:100%;
+    min-height:42px;
+
+    padding:10px 14px;
+
+    border:none;
+    border-radius:10px;
+
+    background:transparent;
+
+    color:#d6dbe8;
+
+    cursor:pointer;
+
+    font-size:13px;
+    font-weight:500;
+
+    text-align:left;
+
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+
+    transition:.2s;
 }
 
-.chat-item:hover {
-    background: rgba(255,255,255,.08);
+.chat-item:hover{
+    background:#1d2b3f;
 }
 
-.chat-item.active {
-    background: linear-gradient(90deg,#4f8cff,#7b61ff);
-    color: white;
+.chat-item.active{
+    background:linear-gradient(90deg,#4F8CFF,#7B61FF);
+    color:white;
 }
-
 @keyframes pulse{
 
     0%{opacity:.3;}
