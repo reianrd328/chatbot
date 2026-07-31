@@ -29,7 +29,10 @@ const featureCards = document.querySelectorAll(".feature-card");
 
 const state = {
     chatting: false,
-    loading: false
+    loading: false,
+
+    // Current conversation
+    currentChatId: null
 };
 
 /* ==========================================================
@@ -184,8 +187,12 @@ async function sendMessage() {
             },
 
             body: JSON.stringify({
-                message: message
-            })
+
+    message: message,
+
+    chat_id: state.currentChatId
+
+})
 
         });
 
@@ -194,6 +201,11 @@ async function sendMessage() {
         }
 
         const data = await response.json();
+         if (data.chat_id) {
+    state.currentChatId = data.chat_id;
+}
+
+console.log("Current Chat:", state.currentChatId);
 
         loading.remove();
 
@@ -225,7 +237,7 @@ async function sendMessage() {
 ========================================================== */
 
 function startNewChat() {
-
+    state.currentChatId = null;
     state.chatting = false;
 
     chatMessages.innerHTML = "";
