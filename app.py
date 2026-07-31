@@ -12,6 +12,9 @@ app.config.from_object(Config)
 # Initialize database
 db.init_app(app)
 
+with app.app_context():
+    db.create_all()
+
 # Login manager
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
@@ -65,7 +68,16 @@ def chat():
 
         else:
 
-            chat = Chat.query.get(chat_id)
+            chat = Chat.query.filter_by(
+    id=chat_id,
+    user_id=current_user.id
+).first()
+
+if not chat:
+    return jsonify({
+        "success": False,
+        "error": "Chat not found."
+    }), 404
 
         # Save user message
         db.session.add(
@@ -130,7 +142,4 @@ def new_chat():
     })
     
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-
     app.run(debug=True)
