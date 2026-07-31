@@ -14,7 +14,7 @@ Reply in the same language as the user.
 def ask_ai(message):
 
     response = client.chat.completions.create(
-        model="auto",
+        model="deepseek-chat",
         messages=[
             {
                 "role":"system",
