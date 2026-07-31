@@ -1271,6 +1271,42 @@ MESSAGES
 
 }
 
+/* ==========================
+   Chat History
+========================== */
+
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.chat-item {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    color: #d7dbe8;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all .2s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chat-item:hover {
+    background: rgba(255,255,255,.08);
+}
+
+.chat-item.active {
+    background: linear-gradient(90deg,#4f8cff,#7b61ff);
+    color: white;
+}
+
 @keyframes pulse{
 
     0%{opacity:.3;}
