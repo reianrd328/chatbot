@@ -20,7 +20,7 @@ def ask_ai(message):
         print("Calling AI...")
 
         response = client.chat.completions.create(
-            model="DeepSeek-V4-Flash",
+            model="auto",
             messages=[
                 {
                     "role": "system",
