@@ -9,30 +9,48 @@ from ai import ask_ai
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Initialize database
+# ==========================
+# Database
+# ==========================
+
 db.init_app(app)
 
 with app.app_context():
     db.create_all()
 
-# Login manager
+# ==========================
+# Login Manager
+# ==========================
+
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
 login_manager.init_app(app)
 
-# Register authentication blueprint
+# ==========================
+# Blueprints
+# ==========================
+
 app.register_blueprint(auth)
 
+# ==========================
+# User Loader
+# ==========================
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# ==========================
+# Home
+# ==========================
 
 @app.route("/")
 def home():
     return redirect("/login")
 
+# ==========================
+# Dashboard
+# ==========================
 
 @app.route("/dashboard")
 @login_required
@@ -43,16 +61,22 @@ def dashboard():
         messages=[]
     )
 
+# ==========================
+# Send Chat Message
+# ==========================
+
 @app.route("/chat", methods=["POST"])
 @login_required
 def chat():
 
     data = request.get_json()
+
     message = data.get("message", "")
     chat_id = data.get("chat_id")
 
     try:
 
+        # Create a new chat if this is the first message
         if not chat_id:
 
             chat = Chat(
@@ -71,6 +95,7 @@ def chat():
             ).first()
 
             if not chat:
+
                 return jsonify({
                     "success": False,
                     "error": "Chat not found"
@@ -85,9 +110,10 @@ def chat():
             )
         )
 
+        # Ask AI
         reply = ask_ai(message)
 
-        # Save AI reply
+        # Save AI response
         db.session.add(
             Message(
                 chat_id=chat.id,
@@ -116,27 +142,86 @@ def chat():
             "error": str(e)
         }), 500
 
+# ==========================
+# Create New Chat
+# ==========================
+
 @app.route("/chat/new", methods=["POST"])
 @login_required
 def new_chat():
 
     chat = Chat(
-
         user_id=current_user.id,
-
         title="New Chat"
-
     )
 
     db.session.add(chat)
-
     db.session.commit()
 
     return jsonify({
-
+        "success": True,
         "chat_id": chat.id
-
     })
-    
+
+# ==========================
+# Get All Chats
+# ==========================
+
+@app.route("/chats", methods=["GET"])
+@login_required
+def get_chats():
+
+    chats = Chat.query.filter_by(
+        user_id=current_user.id
+    ).order_by(
+        Chat.updated_at.desc()
+    ).all()
+
+    return jsonify([
+        {
+            "id": chat.id,
+            "title": chat.title,
+            "created_at": chat.created_at.strftime("%Y-%m-%d %H:%M")
+            if chat.created_at else ""
+        }
+        for chat in chats
+    ])
+
+# ==========================
+# Get One Chat
+# ==========================
+
+@app.route("/chat/<int:chat_id>", methods=["GET"])
+@login_required
+def get_chat(chat_id):
+
+    chat = Chat.query.filter_by(
+        id=chat_id,
+        user_id=current_user.id
+    ).first()
+
+    if not chat:
+        return jsonify({
+            "success": False,
+            "error": "Chat not found"
+        }), 404
+
+    return jsonify({
+        "success": True,
+        "chat_id": chat.id,
+        "title": chat.title,
+        "messages": [
+            {
+                "role": message.role,
+                "content": message.content
+            }
+            for message in chat.messages
+        ]
+    })
+
+# ==========================
+# Run App
+# ==========================
+
 if __name__ == "__main__":
     app.run(debug=True)
