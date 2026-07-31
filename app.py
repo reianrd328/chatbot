@@ -102,25 +102,30 @@ def chat():
                 }), 404
 
         # Save user message
-        db.session.add(
-            Message(
-                chat_id=chat.id,
-                role="user",
-                content=message
-            )
-        )
+        # Save user message
+db.session.add(
+    Message(
+        chat_id=chat.id,
+        role="user",
+        content=message
+    )
+)
 
-        # Ask AI
-        reply = ask_ai(message)
+# Automatically rename new chats using the first user message
+if chat.title == "New Chat":
+    chat.title = message.strip()[:40]
 
-        # Save AI response
-        db.session.add(
-            Message(
-                chat_id=chat.id,
-                role="assistant",
-                content=reply
-            )
-        )
+# Ask AI
+reply = ask_ai(message)
+
+# Save AI response
+db.session.add(
+    Message(
+        chat_id=chat.id,
+        role="assistant",
+        content=reply
+    )
+)
 
         db.session.commit()
 
