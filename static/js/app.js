@@ -15,6 +15,7 @@ const chatMessages = document.getElementById("chatMessages");
 
 const promptInput = document.getElementById("promptInput");
 
+console.log("Prompt Element:", promptInput);
 const sendBtn = document.querySelector(".send-btn");
 
 console.log("Send Button =", sendBtn);
