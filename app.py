@@ -48,29 +48,63 @@ def chat():
 
     message = data.get("message", "")
 
-    reply = ask_ai(message)
+    chat_id = data.get("chat_id")
 
-    return jsonify({
-        "reply": reply
-    })
     try:
+
+        # First message of a conversation
+        if not chat_id:
+
+            chat = Chat(
+                user_id=current_user.id,
+                title="New Chat"
+            )
+
+            db.session.add(chat)
+            db.session.commit()
+
+        else:
+
+            chat = Chat.query.get(chat_id)
+
+        # Save user message
+        db.session.add(
+            Message(
+                chat_id=chat.id,
+                role="user",
+                content=message
+            )
+        )
 
         reply = ask_ai(message)
 
+        # Save AI message
+        db.session.add(
+            Message(
+                chat_id=chat.id,
+                role="assistant",
+                content=reply
+            )
+        )
+
+        db.session.commit()
+
         return jsonify({
             "success": True,
+            "chat_id": chat.id,
             "reply": reply
         })
 
     except Exception as e:
+
+        db.session.rollback()
 
         import traceback
         traceback.print_exc()
 
         return jsonify({
             "success": False,
-            "error": str(e),
-            "type": type(e).__name__
+            "error": str(e)
         }), 500
 
 @app.route("/chat/new", methods=["POST"])
