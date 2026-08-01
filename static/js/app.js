@@ -1,79 +1,57 @@
 /* ==========================================
-   LYRCH AI API
+   LYRCH AI APP
 ========================================== */
 
 "use strict";
 
-const API = {
+/* ==========================================
+   INITIALIZE
+========================================== */
 
-    async sendMessage(message, chatId) {
+document.addEventListener("DOMContentLoaded", init);
 
-        const response = await fetch("/chat", {
+function init() {
 
-            method: "POST",
+    console.log("🚀 Lyrch AI Started");
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+    bindEvents();
 
-            body: JSON.stringify({
+    autoResize();
 
-                message,
+    loadChats();
 
-                chat_id: chatId
+}
 
-            })
+/* ==========================================
+   BIND EVENTS
+========================================== */
 
-        });
+function bindEvents() {
 
-        const data = await response.json();
+    /* Send button */
 
-        if (!response.ok) {
-            throw new Error(data.error || "Unable to send message.");
+    UI.send.addEventListener("click", sendMessage);
+
+    /* New Chat */
+
+    UI.newChat.addEventListener("click", newChat);
+
+    /* Enter key */
+
+    UI.prompt.addEventListener("keydown", (e) => {
+
+        if (e.key === "Enter" && !e.shiftKey) {
+
+            e.preventDefault();
+
+            sendMessage();
+
         }
 
-        return data;
+    });
 
-    },
+    /* Auto resize */
 
-    async getChats() {
+    UI.prompt.addEventListener("input", autoResize);
 
-        const response = await fetch("/chats");
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error("Unable to load chats.");
-        }
-
-        return data;
-
-    },
-
-    async getConversation(chatId) {
-
-        const response = await fetch(`/chat/${chatId}`);
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error("Unable to load conversation.");
-        }
-
-        return data;
-
-    },
-
-    async newChat() {
-
-        const response = await fetch("/chat/new", {
-
-            method: "POST"
-
-        });
-
-        return await response.json();
-
-    }
-
-};
+}
