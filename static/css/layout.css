@@ -1,1 +1,112 @@
+/* ==========================================
+   LYRCH AI
+   LAYOUT
+========================================== */
 
+/* Main Dashboard */
+
+.dashboard{
+
+    display:flex;
+
+    width:100vw;
+
+    height:100vh;
+
+}
+
+/* Sidebar */
+
+.sidebar{
+
+    width:280px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    background:rgba(17,24,39,.90);
+
+    backdrop-filter:blur(20px);
+
+    border-right:1px solid var(--border);
+
+}
+
+/* Main Workspace */
+
+.workspace{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* Hero */
+
+.hero{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:60px;
+
+}
+
+/* Chat Area */
+
+.chat-area{
+
+    flex:1;
+
+    display:none;
+
+    overflow-y:auto;
+
+    padding:30px;
+
+}
+
+/* Visibility */
+
+.hero-hidden{
+
+    display:none !important;
+
+}
+
+.hero-visible{
+
+    display:flex !important;
+
+}
+
+.chat-hidden{
+
+    display:none !important;
+
+}
+
+.chat-visible{
+
+    display:flex !important;
+
+    flex-direction:column;
+
+}
