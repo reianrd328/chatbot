@@ -30,11 +30,11 @@ function bindEvents() {
 
     /* Send button */
 
-    UI.sendBtn.addEventListener("click", sendMessage);
+    UI.send.addEventListener("click", sendMessage);
 
     /* New Chat */
 
-    UI.newChatBtn.addEventListener("click", newChat);
+    UI.newChat.addEventListener("click", newChat);
 
     /* Enter key */
 
