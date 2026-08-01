@@ -1,1 +1,102 @@
+/* ==========================================
+   LYRCH AI
+   BASE
+========================================== */
 
+/* Google Fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+/* Reset */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+}
+
+body{
+
+    font-family:"Inter",sans-serif;
+
+    background:#07111F;
+
+    color:#F8FAFC;
+
+    overflow:hidden;
+
+}
+
+/* Variables */
+
+:root{
+
+    --bg:#07111F;
+
+    --sidebar:#111827;
+
+    --surface:#1F2937;
+
+    --border:#374151;
+
+    --primary:#38BDF8;
+
+    --secondary:#7C3AED;
+
+    --text:#F8FAFC;
+
+    --muted:#94A3B8;
+
+    --radius:20px;
+
+    --transition:.25s ease;
+
+}
+
+/* Background Glow */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle at top left,
+    rgba(56,189,248,.18),
+    transparent 35%),
+
+    radial-gradient(circle at bottom right,
+    rgba(124,58,237,.18),
+    transparent 40%),
+
+    #07111F;
+
+    z-index:-2;
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#334155;
+
+    border-radius:10px;
+
+}
