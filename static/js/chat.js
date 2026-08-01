@@ -1,18 +1,8 @@
 /* ==========================================
-   LYRCH AI CHAT MANAGER
+   LYRCH AI CHAT ENGINE
 ========================================== */
 
 "use strict";
-
-const Chat = {
-
-    currentChatId: null,
-
-    loading: false,
-
-    chatting: false
-
-};
 
 /* ==========================================
    SEND MESSAGE
@@ -20,21 +10,25 @@ const Chat = {
 
 async function sendMessage() {
 
-    if (Chat.loading) return;
+    if (State.loading) return;
 
     const message = UI.prompt.value.trim();
 
     if (!message) return;
 
-    Chat.loading = true;
+    State.loading = true;
 
-    if (!Chat.chatting) {
+    // Show chat window
 
-        Chat.chatting = true;
+    if (!State.chatting) {
+
+        State.chatting = true;
 
         showChat();
 
     }
+
+    // User message
 
     addMessage("user", message);
 
@@ -50,13 +44,13 @@ async function sendMessage() {
 
             message,
 
-            Chat.currentChatId
+            State.currentChatId
 
         );
 
         hideLoading();
 
-        Chat.currentChatId = data.chat_id;
+        State.currentChatId = data.chat_id;
 
         addMessage(
 
@@ -66,7 +60,7 @@ async function sendMessage() {
 
         );
 
-        loadChats();
+        await loadChats();
 
     }
 
@@ -86,7 +80,11 @@ async function sendMessage() {
 
     }
 
-    Chat.loading = false;
+    finally{
+
+        State.loading = false;
+
+    }
 
 }
 
@@ -96,9 +94,9 @@ async function sendMessage() {
 
 function newChat(){
 
-    Chat.currentChatId = null;
+    State.currentChatId = null;
 
-    Chat.chatting = false;
+    State.chatting = false;
 
     clearMessages();
 
@@ -116,9 +114,9 @@ async function loadConversation(chatId){
 
         const data = await API.getConversation(chatId);
 
-        Chat.currentChatId = chatId;
+        State.currentChatId = chatId;
 
-        Chat.chatting = true;
+        State.chatting = true;
 
         clearMessages();
 
@@ -145,3 +143,13 @@ async function loadConversation(chatId){
     }
 
 }
+
+/* ==========================================
+   GLOBAL EXPORTS
+========================================== */
+
+window.sendMessage = sendMessage;
+
+window.newChat = newChat;
+
+window.loadConversation = loadConversation;
