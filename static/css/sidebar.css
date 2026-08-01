@@ -1,1 +1,255 @@
+/* ==========================================
+   LYRCH AI
+   SIDEBAR
+========================================== */
 
+/* Sidebar */
+
+.sidebar{
+
+    padding:24px;
+
+}
+
+/* Logo */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    margin-bottom:32px;
+
+}
+
+.logo-icon{
+
+    width:56px;
+
+    height:56px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:18px;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    font-size:26px;
+
+    box-shadow:
+        0 0 25px rgba(56,189,248,.25);
+}
+
+.logo-text h2{
+
+    font-family:"Space Grotesk",sans-serif;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.logo-text span{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+.logo-text p{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+/* New Chat Button */
+
+.new-chat{
+
+    height:54px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    transition:var(--transition);
+
+}
+
+.new-chat:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 30px rgba(56,189,248,.30);
+
+}
+
+/* Divider */
+
+.sidebar-divider{
+
+    height:1px;
+
+    background:var(--border);
+
+    margin:28px 0;
+
+}
+
+/* Chat History */
+
+.chat-history{
+
+    flex:1;
+
+    overflow-y:auto;
+
+}
+
+.chat-history h4{
+
+    color:var(--muted);
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-bottom:16px;
+
+}
+
+/* Chat List */
+
+.chat-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+/* Chat Item */
+
+.chat-item{
+
+    width:100%;
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--text);
+
+    padding:12px 14px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    transition:var(--transition);
+
+    font-size:14px;
+
+}
+
+.chat-item:hover{
+
+    background:rgba(255,255,255,.06);
+
+}
+
+.chat-item.active{
+
+    background:rgba(56,189,248,.18);
+
+    border:1px solid rgba(56,189,248,.35);
+
+}
+
+/* Footer */
+
+.sidebar-footer{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    margin-top:20px;
+
+}
+
+.sidebar-footer button{
+
+    height:46px;
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--muted);
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    text-align:left;
+
+    padding-left:14px;
+
+    transition:var(--transition);
+
+}
+
+.sidebar-footer button:hover{
+
+    background:rgba(255,255,255,.05);
+
+    color:white;
+
+}
