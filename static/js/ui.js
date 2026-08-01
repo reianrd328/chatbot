@@ -14,13 +14,29 @@ const UI = {
 
     prompt: document.getElementById("promptInput"),
 
-    send: document.querySelector(".send-btn"),
+    sendBtn: document.querySelector(".send-btn"),
 
-    newChat: document.querySelector(".new-chat"),
+    newChatBtn: document.querySelector(".new-chat"),
 
     chatList: document.getElementById("chatList")
 
 };
+
+window.UI = UI;
+
+/* ==========================================
+   SHOW HERO
+========================================== */
+
+function showHero() {
+
+    UI.hero.classList.remove("hero-hidden");
+    UI.hero.classList.add("hero-visible");
+
+    UI.chatArea.classList.remove("chat-visible");
+    UI.chatArea.classList.add("chat-hidden");
+
+}
 
 /* ==========================================
    SHOW CHAT
@@ -37,16 +53,12 @@ function showChat() {
 }
 
 /* ==========================================
-   SHOW HERO
+   CLEAR MESSAGES
 ========================================== */
 
-function showHero() {
+function clearMessages() {
 
-    UI.hero.classList.remove("hero-hidden");
-    UI.hero.classList.add("hero-visible");
-
-    UI.chatArea.classList.remove("chat-visible");
-    UI.chatArea.classList.add("chat-hidden");
+    UI.chatMessages.innerHTML = "";
 
 }
 
@@ -75,16 +87,16 @@ function addMessage(role, text) {
 }
 
 /* ==========================================
-   LOADING
+   SHOW LOADING
 ========================================== */
 
 function showLoading() {
 
     const wrapper = document.createElement("div");
 
-    wrapper.className = "message assistant loading";
-
     wrapper.id = "loadingBubble";
+
+    wrapper.className = "message assistant loading";
 
     const bubble = document.createElement("div");
 
@@ -100,43 +112,29 @@ function showLoading() {
 
 }
 
+/* ==========================================
+   HIDE LOADING
+========================================== */
+
 function hideLoading() {
 
     const loading = document.getElementById("loadingBubble");
 
-    if (loading) loading.remove();
+    if (loading) {
+
+        loading.remove();
+
+    }
 
 }
 
 /* ==========================================
-   CLEAR CHAT
+   GLOBAL EXPORTS
 ========================================== */
 
-function clearMessages() {
-
-    UI.chatMessages.innerHTML = "";
-
-}
-
-/* ==========================================
-   SCROLL
-========================================== */
-
-function scrollBottom() {
-
-    UI.chatMessages.scrollTop = UI.chatMessages.scrollHeight;
-
-}
-
-/* ==========================================
-   AUTO RESIZE
-========================================== */
-
-function autoResize() {
-
-    UI.prompt.style.height = "auto";
-
-    UI.prompt.style.height =
-        UI.prompt.scrollHeight + "px";
-
-}
+window.showHero = showHero;
+window.showChat = showChat;
+window.clearMessages = clearMessages;
+window.addMessage = addMessage;
+window.showLoading = showLoading;
+window.hideLoading = hideLoading;
