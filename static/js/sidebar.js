@@ -24,7 +24,7 @@ async function loadChats() {
 
             item.className = "chat-item";
 
-            item.textContent = "💬 " + truncate(chat.title);
+            item.textContent = "💬 " + chat.title;
 
             if (chat.id === Chat.currentChatId) {
                 item.classList.add("active");
@@ -49,3 +49,5 @@ async function loadChats() {
     }
 
 }
+
+window.loadChats = loadChats;
