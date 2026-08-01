@@ -26,7 +26,7 @@ async function loadChats() {
 
             item.textContent = "💬 " + chat.title;
 
-            if (chat.id === Chat.currentChatId) {
+            if (chat.id === State.currentChatId) {
                 item.classList.add("active");
             }
 
