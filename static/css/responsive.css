@@ -1,1 +1,168 @@
+/* ==========================================
+   LYRCH AI
+   RESPONSIVE
+========================================== */
 
+/* Laptop */
+
+@media (max-width:1200px){
+
+    .chat-messages{
+
+        max-width:800px;
+
+    }
+
+}
+
+/* Tablet */
+
+@media (max-width:900px){
+
+    /* Sidebar */
+
+    .sidebar{
+
+        width:90px;
+
+        padding:18px;
+
+    }
+
+    .logo-text{
+
+        display:none;
+
+    }
+
+    .new-chat{
+
+        font-size:0;
+
+    }
+
+    .new-chat::before{
+
+        content:"+";
+
+        font-size:30px;
+
+        font-weight:bold;
+
+    }
+
+    .chat-history h4{
+
+        display:none;
+
+    }
+
+    .sidebar-footer button{
+
+        font-size:0;
+
+        justify-content:center;
+
+        padding:0;
+
+    }
+
+    /* Hero */
+
+    .hero h1{
+
+        font-size:52px;
+
+    }
+
+    .hero h2{
+
+        font-size:24px;
+
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width:600px){
+
+    .dashboard{
+
+        flex-direction:column;
+
+    }
+
+    .sidebar{
+
+        display:none;
+
+    }
+
+    .workspace{
+
+        width:100%;
+
+    }
+
+    .hero{
+
+        padding:25px;
+
+    }
+
+    .hero-logo{
+
+        width:90px;
+
+        height:90px;
+
+        font-size:40px;
+
+    }
+
+    .hero h1{
+
+        font-size:40px;
+
+    }
+
+    .hero h2{
+
+        font-size:22px;
+
+    }
+
+    .hero > p{
+
+        font-size:15px;
+
+    }
+
+    .chat-area{
+
+        padding:18px;
+
+    }
+
+    .bubble{
+
+        max-width:95%;
+
+        font-size:15px;
+
+    }
+
+    .prompt-area{
+
+        padding:0 12px 12px;
+
+    }
+
+    .prompt-box{
+
+        border-radius:18px;
+
+    }
+
+}
