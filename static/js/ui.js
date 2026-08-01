@@ -14,9 +14,9 @@ const UI = {
 
     prompt: document.getElementById("promptInput"),
 
-    sendBtn: document.querySelector(".send-btn"),
+    send: document.querySelector(".send-btn"),
 
-    newChatBtn: document.querySelector(".new-chat"),
+    newChat: document.querySelector(".new-chat"),
 
     chatList: document.getElementById("chatList")
 
