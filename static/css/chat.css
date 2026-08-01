@@ -1,1 +1,170 @@
+/* ==========================================
+   LYRCH AI
+   CHAT
+========================================== */
 
+/* Chat Area */
+
+.chat-area{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:32px;
+
+}
+
+/* Messages Container */
+
+.chat-messages{
+
+    width:100%;
+
+    max-width:900px;
+
+    margin:0 auto;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+    padding-bottom:120px;
+
+}
+
+/* Message */
+
+.message{
+
+    display:flex;
+
+    width:100%;
+
+    animation:fadeIn .25s ease;
+
+}
+
+/* User */
+
+.message.user{
+
+    justify-content:flex-end;
+
+}
+
+/* Assistant */
+
+.message.assistant{
+
+    justify-content:flex-start;
+
+}
+
+/* Bubble */
+
+.bubble{
+
+    max-width:75%;
+
+    padding:18px 22px;
+
+    border-radius:20px;
+
+    line-height:1.7;
+
+    font-size:15px;
+
+    word-wrap:break-word;
+
+    white-space:pre-wrap;
+
+}
+
+/* User Bubble */
+
+.message.user .bubble{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:white;
+
+    border-bottom-right-radius:8px;
+
+}
+
+/* Assistant Bubble */
+
+.message.assistant .bubble{
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    border-bottom-left-radius:8px;
+
+}
+
+/* Loading */
+
+.loading .bubble{
+
+    opacity:.75;
+
+    animation:pulse 1s infinite;
+
+}
+
+/* Fade */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(18px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Thinking */
+
+@keyframes pulse{
+
+    0%{
+
+        opacity:.4;
+
+    }
+
+    50%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        opacity:.4;
+
+    }
+
+}
