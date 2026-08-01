@@ -20,9 +20,10 @@
 .sidebar{
 
     width:280px;
+    min-width:280px;
+    max-width:280px;
 
     display:flex;
-
     flex-direction:column;
 
     background:rgba(17,24,39,.90);
@@ -30,6 +31,8 @@
     backdrop-filter:blur(20px);
 
     border-right:1px solid var(--border);
+
+    padding:20px 16px;
 
 }
 
