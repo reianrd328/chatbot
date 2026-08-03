@@ -57,3 +57,8 @@ function bindEvents() {
     UI.prompt.addEventListener("input", autoResize);
 
 }
+
+// Clear session when browser closes
+window.addEventListener("beforeunload", () => {
+    navigator.sendBeacon("/logout-session");
+});
