@@ -26,7 +26,7 @@ def ask_ai(message):
         print("=" * 60)
 
         response = client.chat.completions.create(
-           model="kimi-k3-free",
+            model="auto",
             messages=[
                 {
                     "role": "system",
@@ -48,13 +48,13 @@ def ask_ai(message):
         return reply
 
     except Exception as e:
-    import traceback
+        import traceback
 
-    print("=" * 60)
-    print("AI ERROR")
-    print(type(e).__name__)
-    print(str(e))
-    traceback.print_exc()
-    print("=" * 60)
+        print("=" * 60)
+        print("AI ERROR")
+        print("Exception Type:", type(e).__name__)
+        print("Exception:", str(e))
+        traceback.print_exc()
+        print("=" * 60)
 
-    raise
+        raise
