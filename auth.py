@@ -1,13 +1,15 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 import uuid
 from datetime import datetime, timedelta, timezone
-from models import db, User
+
 from flask_login import (
     login_user,
     logout_user,
     login_required,
     current_user
 )
+
+from models import db, User
 
 auth = Blueprint("auth", __name__)
 
@@ -21,17 +23,14 @@ def register():
         email = request.form.get("email", "").strip().lower()
         password = request.form.get("password", "")
 
-        # Check if username already exists
         if User.query.filter_by(username=username).first():
             flash("Username already exists.")
             return redirect(url_for("auth.register"))
 
-        # Check if email already exists
         if User.query.filter_by(email=email).first():
             flash("Email already exists.")
             return redirect(url_for("auth.register"))
 
-        # Create new user
         user = User(
             username=username,
             email=email
@@ -60,24 +59,22 @@ def login():
 
         if user and user.check_password(password):
 
-            # Block login if another active session exists
             if user.session_id and user.last_activity:
 
-                now = datetime.now(timezone.utc)
                 last = user.last_activity
 
                 if last.tzinfo is None:
                     last = last.replace(tzinfo=timezone.utc)
 
+                now = datetime.now(timezone.utc)
+
                 if now - last < timedelta(minutes=30):
 
                     flash(
-                        "This account is already logged in on another device.",
-                        "danger"
+                        "This account is already logged in on another device."
                     )
                     return redirect(url_for("auth.login"))
 
-            # Create new session
             user.session_id = str(uuid.uuid4())
             user.last_activity = datetime.now(timezone.utc)
 
@@ -91,19 +88,6 @@ def login():
 
     return render_template("login.html")
 
-            # Generate a new session
-            user.session_id = str(uuid.uuid4())
-            user.last_activity = datetime.now(timezone.utc)
-
-            db.session.commit()
-
-            login_user(user)
-
-            return redirect(url_for("dashboard"))
-
-        flash("Invalid email or password.")
-
-    return render_template("login.html")
 
 @auth.route("/logout")
 @login_required
