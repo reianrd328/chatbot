@@ -8,6 +8,11 @@ from ai import ask_ai
 
 app = Flask(__name__)
 app.config.from_object(Config)
+print("=" * 50)
+print("DATABASE:", Config.DB_NAME)
+print("HOST:", Config.DB_HOST)
+print("PORT:", Config.DB_PORT)
+print("=" * 50)
 
 # ==========================
 # Database
