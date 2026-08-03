@@ -48,11 +48,13 @@ def ask_ai(message):
         return reply
 
     except Exception as e:
-        import traceback
+    import traceback
 
-        print("=" * 60)
-        print("AI ERROR")
-        traceback.print_exc()
-        print("=" * 60)
+    print("=" * 60)
+    print("AI ERROR")
+    print(type(e).__name__)
+    print(str(e))
+    traceback.print_exc()
+    print("=" * 60)
 
-        raise
+    raise
