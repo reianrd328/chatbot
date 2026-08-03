@@ -83,7 +83,13 @@
 
             <button>👤 Profile</button>
 
-            <button>🚪 Logout</button>
+            <button
+            class="sidebar-btn logout-btn"
+            onclick="window.location.href='{{ url_for('auth.logout') }}'">
+
+            🚪 Logout
+
+            </button>
 
         </div>
 
