@@ -6,51 +6,94 @@
 
 const API = {
 
-   async sendMessage(message, chatId) {
+    /* ==========================================
+       SEND MESSAGE
+    ========================================== */
 
-    const response = await fetch("/chat", {
+    async sendMessage(message, chatId) {
 
-        method: "POST",
+        const response = await fetch("/chat", {
 
-        headers: {
-            "Content-Type": "application/json"
-        },
+            method: "POST",
 
-        body: JSON.stringify({
-            message,
-            chat_id: chatId
-        })
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-    });
+            body: JSON.stringify({
+                message,
+                chat_id: chatId
+            })
 
-    // Read as text first
-    const text = await response.text();
+        });
 
-    let data;
+        const text = await response.text();
 
-    try {
+        let data;
 
-        data = JSON.parse(text);
+        try {
 
-    } catch (err) {
+            data = JSON.parse(text);
 
-        console.error("Server response:", text);
+        } catch (err) {
 
-        throw new Error("Server did not return valid JSON.");
+            console.error("Server response:", text);
+
+            throw new Error("Server did not return valid JSON.");
+
+        }
+
+        if (!response.ok) {
+
+            throw new Error(data.error || "Unable to send message.");
+
+        }
+
+        return data;
+
+    },
+
+    /* ==========================================
+       LOAD CHATS
+    ========================================== */
+
+    async getChats() {
+
+        const response = await fetch("/chats");
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            throw new Error("Unable to load chats.");
+
+        }
+
+        return data;
+
+    },
+
+    /* ==========================================
+       LOAD ONE CHAT
+    ========================================== */
+
+    async getConversation(chatId) {
+
+        const response = await fetch(`/chat/${chatId}`);
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            throw new Error("Unable to load conversation.");
+
+        }
+
+        return data;
 
     }
-
-    if (!response.ok) {
-
-        throw new Error(data.error || "Unable to send message.");
-
-    }
-
-    return data;
-
-}
 
 };
 
-// Make API globally available
+// Make globally available
 window.API = API;
