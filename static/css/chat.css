@@ -1,9 +1,6 @@
 /* ==========================================
-   LYRCH AI
-   CHAT
+   CHAT AREA
 ========================================== */
-
-/* Chat Area */
 
 .chat-area{
 
@@ -11,39 +8,29 @@
 
     overflow-y:auto;
 
-    padding:32px;
+    padding:40px;
 
 }
 
-/* Messages Container */
-
-.chat-messages{
-
-    width:100%;
-
-    max-width:900px;
-
-    margin:0 auto;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:20px;
-
-    padding-bottom:120px;
-
-}
-
-/* Message */
+/* ==========================================
+   MESSAGE
+========================================== */
 
 .message{
 
     display:flex;
 
-    width:100%;
+    margin-bottom:28px;
 
     animation:fadeIn .25s ease;
+
+}
+
+/* AI */
+
+.message.assistant{
+
+    justify-content:flex-start;
 
 }
 
@@ -55,31 +42,21 @@
 
 }
 
-/* Assistant */
-
-.message.assistant{
-
-    justify-content:flex-start;
-
-}
-
 /* Bubble */
 
 .bubble{
 
-    max-width:75%;
+    max-width:760px;
 
     padding:18px 22px;
 
-    border-radius:20px;
+    border-radius:22px;
 
-    line-height:1.7;
+    font-size:16px;
 
-    font-size:15px;
+    line-height:1.8;
 
-    word-wrap:break-word;
-
-    white-space:pre-wrap;
+    word-break:break-word;
 
 }
 
@@ -99,31 +76,21 @@
 
 }
 
-/* Assistant Bubble */
+/* AI Bubble */
 
 .message.assistant .bubble{
 
-    background:var(--surface);
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
 
     color:var(--text);
-
-    border:1px solid var(--border);
 
     border-bottom-left-radius:8px;
 
 }
 
-/* Loading */
-
-.loading .bubble{
-
-    opacity:.75;
-
-    animation:pulse 1s infinite;
-
-}
-
-/* Fade */
+/* Animation */
 
 @keyframes fadeIn{
 
@@ -131,7 +98,7 @@
 
         opacity:0;
 
-        transform:translateY(18px);
+        transform:translateY(12px);
 
     }
 
@@ -139,31 +106,7 @@
 
         opacity:1;
 
-        transform:translateY(0);
-
-    }
-
-}
-
-/* Thinking */
-
-@keyframes pulse{
-
-    0%{
-
-        opacity:.4;
-
-    }
-
-    50%{
-
-        opacity:1;
-
-    }
-
-    100%{
-
-        opacity:.4;
+        transform:none;
 
     }
 
