@@ -61,28 +61,35 @@ def login():
         if user and user.check_password(password):
 
             # Block login if another active session exists
-if user.session_id and user.last_activity:
+            if user.session_id and user.last_activity:
 
-    now = datetime.now(timezone.utc)
+                now = datetime.now(timezone.utc)
+                last = user.last_activity
 
-    # Ensure timezone-aware comparison
-    last = user.last_activity
+                if last.tzinfo is None:
+                    last = last.replace(tzinfo=timezone.utc)
 
-    if last.tzinfo is None:
-        last = last.replace(tzinfo=timezone.utc)
+                if now - last < timedelta(minutes=30):
 
-    if now - last < timedelta(minutes=30):
+                    flash(
+                        "This account is already logged in on another device.",
+                        "danger"
+                    )
+                    return redirect(url_for("auth.login"))
 
-        flash(
-            "This account is already logged in on another device.",
-            "danger"
-        )
-        return redirect(url_for("auth.login"))
-                flash(
-                    "This account is already logged in on another device.",
-                    "danger"
-                )
-                return redirect(url_for("auth.login"))
+            # Create new session
+            user.session_id = str(uuid.uuid4())
+            user.last_activity = datetime.now(timezone.utc)
+
+            db.session.commit()
+
+            login_user(user)
+
+            return redirect(url_for("dashboard"))
+
+        flash("Invalid email or password.")
+
+    return render_template("login.html")
 
             # Generate a new session
             user.session_id = str(uuid.uuid4())
