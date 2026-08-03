@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required
-
+import uuid
+from datetime import datetime, timedelta, timezone
 from models import db, User
 
 auth = Blueprint("auth", __name__)
@@ -53,18 +54,30 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if user and user.check_password(password):
+
+            # Session timeout (30 minutes)
+            if (
+                user.session_id and
+                user.last_activity and
+                datetime.now(timezone.utc) - user.last_activity < timedelta(minutes=30)
+            ):
+
+                flash(
+                    "This account is already logged in on another device.",
+                    "danger"
+                )
+                return redirect(url_for("auth.login"))
+
+            # Generate a new session
+            user.session_id = str(uuid.uuid4())
+            user.last_activity = datetime.now(timezone.utc)
+
+            db.session.commit()
+
             login_user(user)
+
             return redirect(url_for("dashboard"))
 
         flash("Invalid email or password.")
 
     return render_template("login.html")
-
-
-@auth.route("/logout")
-@login_required
-def logout():
-
-    logout_user()
-
-    return redirect(url_for("auth.login"))
