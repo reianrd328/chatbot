@@ -68,7 +68,7 @@ def login():
 
                 now = datetime.now(timezone.utc)
 
-                if now - last < timedelta(minutes=30):
+                if now - last < timedelta(minutes=2):
 
                     flash(
                         "This account is already logged in on another device."
