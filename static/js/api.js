@@ -39,7 +39,9 @@ const API = {
 
             console.error("Server response:", text);
 
-            throw new Error("Server did not return valid JSON.");
+            console.error(text);
+
+            throw new Error(text);
 
         }
 
