@@ -1,3 +1,13 @@
+from flask import Flask, redirect, render_template, request, jsonify
+from flask_login import LoginManager, login_required, current_user
+
+from config import Config
+from models import db, User, Chat, Message
+from auth import auth
+from ai import ask_ai
+
+app = Flask(__name__)
+app.config.from_object(Config)
 # ==========================
 # Get One Chat
 # ==========================
@@ -46,10 +56,6 @@ def logout_session():
 
     return "", 204
 
-
-# ==========================
-# Run App
-# ==========================
 
 if __name__ == "__main__":
     app.run(debug=True)
