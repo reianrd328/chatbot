@@ -17,7 +17,13 @@ def ask_ai(message):
     start = time.time()
 
     try:
+        print("=" * 60)
         print("Calling AI...")
+        print("API KEY EXISTS:", bool(Config.API_KEY))
+        print("BASE URL:", Config.BASE_URL)
+        print("MODEL:", "auto")
+        print("USER MESSAGE:", message)
+        print("=" * 60)
 
         response = client.chat.completions.create(
             model="auto",
@@ -35,14 +41,18 @@ def ask_ai(message):
 
         print(f"Finished in {time.time() - start:.2f}s")
 
-        return response.choices[0].message.content
+        reply = response.choices[0].message.content
+
+        print("AI Reply:", reply)
+
+        return reply
 
     except Exception as e:
-    import traceback
+        import traceback
 
-    print("=" * 60)
-    print("AI ERROR")
-    traceback.print_exc()
-    print("=" * 60)
+        print("=" * 60)
+        print("AI ERROR")
+        traceback.print_exc()
+        print("=" * 60)
 
-    raise
+        raise
