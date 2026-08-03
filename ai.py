@@ -26,7 +26,7 @@ def ask_ai(message):
         print("=" * 60)
 
         response = client.chat.completions.create(
-            model="auto",
+           model="kimi-k3-free",
             messages=[
                 {
                     "role": "system",
