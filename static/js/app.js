@@ -20,6 +20,8 @@ function init() {
 
     loadChats();
 
+    initFeatureCards();
+
 }
 
 /* ==========================================
