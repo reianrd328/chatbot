@@ -38,5 +38,11 @@ def ask_ai(message):
         return response.choices[0].message.content
 
     except Exception as e:
-        print("AI ERROR:", repr(e))
-        raise
+    import traceback
+
+    print("=" * 60)
+    print("AI ERROR")
+    traceback.print_exc()
+    print("=" * 60)
+
+    raise
