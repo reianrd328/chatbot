@@ -28,6 +28,18 @@ class User(UserMixin, db.Model):
         nullable=False
     )
 
+    # NEW
+    session_id = db.Column(
+        db.String(64),
+        nullable=True
+    )
+
+    # NEW
+    last_activity = db.Column(
+        db.DateTime(timezone=True),
+        nullable=True
+    )
+
     created_at = db.Column(
         db.DateTime(timezone=True),
         server_default=func.now()
