@@ -69,23 +69,39 @@ function clearMessages() {
 function addMessage(role, text) {
 
     const wrapper = document.createElement("div");
-
     wrapper.className = `message ${role}`;
 
+    // Avatar
+    const avatar = document.createElement("div");
+    avatar.className = "avatar";
+
+    avatar.textContent =
+        role === "assistant"
+            ? "✦"
+            : "🙂";
+
+    // Bubble
     const bubble = document.createElement("div");
-
     bubble.className = "bubble";
-
     bubble.textContent = text;
 
-    wrapper.appendChild(bubble);
+    if(role==="assistant"){
+
+        wrapper.appendChild(avatar);
+        wrapper.appendChild(bubble);
+
+    }else{
+
+        wrapper.appendChild(bubble);
+        wrapper.appendChild(avatar);
+
+    }
 
     UI.chatMessages.appendChild(wrapper);
 
     scrollBottom();
 
 }
-
 /* ==========================================
    SHOW LOADING
 ========================================== */
