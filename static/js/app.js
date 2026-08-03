@@ -62,3 +62,24 @@ function bindEvents() {
 window.addEventListener("beforeunload", () => {
     navigator.sendBeacon("/logout-session");
 });
+
+/* ==========================================
+   SESSION MANAGEMENT
+========================================== */
+
+// Keep session alive while dashboard is open
+setInterval(() => {
+
+    fetch("/heartbeat", {
+        method: "POST"
+    }).catch(err => console.error("Heartbeat failed:", err));
+
+}, 60000);
+
+
+// Best effort cleanup when browser closes
+window.addEventListener("beforeunload", () => {
+
+    navigator.sendBeacon("/logout-session");
+
+});
