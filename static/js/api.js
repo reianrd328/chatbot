@@ -6,62 +6,49 @@
 
 const API = {
 
-    async sendMessage(message, chatId) {
+   async sendMessage(message, chatId) {
 
-        const response = await fetch("/chat", {
+    const response = await fetch("/chat", {
 
-            method: "POST",
+        method: "POST",
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+        headers: {
+            "Content-Type": "application/json"
+        },
 
-            body: JSON.stringify({
+        body: JSON.stringify({
+            message,
+            chat_id: chatId
+        })
 
-                message: message,
-                chat_id: chatId
+    });
 
-            })
+    // Read as text first
+    const text = await response.text();
 
-        });
+    let data;
 
-        const data = await response.json();
+    try {
 
-        if (!response.ok) {
-            throw new Error(data.error || "Unable to send message.");
-        }
+        data = JSON.parse(text);
 
-        return data;
+    } catch (err) {
 
-    },
+        console.error("Server response:", text);
 
-    async getChats() {
-
-        const response = await fetch("/chats");
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error("Unable to load chats.");
-        }
-
-        return data;
-
-    },
-
-    async getConversation(chatId) {
-
-        const response = await fetch(`/chat/${chatId}`);
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error("Unable to load conversation.");
-        }
-
-        return data;
+        throw new Error("Server did not return valid JSON.");
 
     }
+
+    if (!response.ok) {
+
+        throw new Error(data.error || "Unable to send message.");
+
+    }
+
+    return data;
+
+}
 
 };
 
