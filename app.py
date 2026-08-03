@@ -271,6 +271,10 @@ def get_chat(chat_id):
 # Browser Closed
 # ==========================================
 
+# ==========================
+# Browser Closed
+# ==========================
+
 @app.route("/logout-session", methods=["POST"])
 @login_required
 def logout_session():
@@ -283,9 +287,9 @@ def logout_session():
     return "", 204
 
 
-# ==========================================
-# Keep Alive
-# ==========================================
+# ==========================
+# Heartbeat
+# ==========================
 
 @app.route("/heartbeat", methods=["POST"])
 @login_required
@@ -297,29 +301,7 @@ def heartbeat():
 
     db.session.commit()
 
-    return jsonify({
-        "success": True
-    })
-
-
-# ==========================================
-# Debug Routes
-# ==========================================
-
-@app.route("/routes")
-def routes():
-
-    return "<br>".join(
-
-        sorted(
-
-            str(rule)
-
-            for rule in app.url_map.iter_rules()
-
-        )
-
-    )
+    return "", 204
 
 
 # ==========================================
