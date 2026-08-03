@@ -40,7 +40,9 @@
 
     display:flex;
 
-    margin-bottom:28px;
+    align-items:flex-end;
+
+    width:100%;
 
     animation:fadeIn .25s ease;
 
