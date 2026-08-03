@@ -21,12 +21,12 @@ function autoResize() {
    SCROLL TO BOTTOM
 ========================================== */
 
-function scrollBottom() {
+function scrollBottom(){
 
-    if (!UI.chatMessages) return;
-
-    UI.chatMessages.scrollTop =
-        UI.chatMessages.scrollHeight;
+    UI.chatMessages.scrollIntoView({
+        block: "end",
+        behavior: "smooth"
+    });
 
 }
 
