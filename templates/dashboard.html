@@ -5,77 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Lyrch AI</title>
-   
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/prompt.css') }}">
-   <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hero.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/prompt.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-   <script defer src="{{ url_for('static', filename='js/api.js') }}"></script>
-   <script defer src="{{ url_for('static', filename='js/utils.js') }}"></script>
-   <script defer src="{{ url_for('static', filename='js/ui.js') }}"></script>
-   <script defer src="{{ url_for('static', filename='js/state.js') }}"></script>
-   <script defer src="{{ url_for('static', filename='js/chat.js') }}"></script>
-   <script defer src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
-  <!-- NEW -->
-  <script defer src="{{ url_for('static', filename='js/features.js') }}"></script>
-  <!-- LAST -->
-  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
-  </head>
+    <!-- JavaScript -->
+    <script defer src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/ui.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/state.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/features.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+</head>
 
 <body>
 
 <div class="dashboard">
 
-    <!-- ===================== -->
+    <!-- ========================= -->
     <!-- Sidebar -->
-    <!-- ===================== -->
+    <!-- ========================= -->
 
     <aside class="sidebar">
 
         <div class="logo">
 
-            <div class="logo-icon">
-                ✦
-            </div>
+            <div class="logo-icon">✦</div>
 
             <div class="logo-text">
-
                 <h2>Lyrch <span>AI</span></h2>
-
                 <p>Think Clearly.</p>
-
             </div>
 
         </div>
 
         <button class="new-chat">
-
-    ＋ New Chat
-
-</button>
+            ＋ New Chat
+        </button>
 
         <div class="sidebar-divider"></div>
 
-       <div class="chat-history">
+        <div class="chat-history">
 
-    <h4>Recent Chats</h4>
+            <h4>Recent Chats</h4>
 
-    <div id="chatList" class="chat-list">
+            <div id="chatList" class="chat-list"></div>
 
-        <!-- Chats will be loaded here -->
-
-    </div>
-
-</div>
+        </div>
 
         <div class="sidebar-footer">
 
@@ -84,10 +75,10 @@
             <button>👤 Profile</button>
 
             <button
-            class="sidebar-btn logout-btn"
-            onclick="window.location.href='{{ url_for('auth.logout') }}'">
+                class="sidebar-btn logout-btn"
+                onclick="window.location.href='{{ url_for('auth.logout') }}'">
 
-            🚪 Logout
+                🚪 Logout
 
             </button>
 
@@ -95,149 +86,92 @@
 
     </aside>
 
-
-    <!-- ===================== -->
+    <!-- ========================= -->
     <!-- Workspace -->
-    <!-- ===================== -->
+    <!-- ========================= -->
 
-    .workspace {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-}
+    <main class="workspace">
 
-
-        <!-- ===================== -->
         <!-- Hero -->
-        <!-- ===================== -->
 
         <section id="hero" class="hero hero-visible">
 
-            <div class="hero-logo">
-
-                ✦
-
-            </div>
+            <div class="hero-logo">✦</div>
 
             <h1>
-
                 Lyrch <span>AI</span>
-
             </h1>
 
             <h2>
-
-                Think Clearly.
+                Think Clearly.<br>
                 Create Confidently.
-
             </h2>
 
             <p>
-
                 Learning • Yielding • Reasoning • Creativity • Harmony
-
             </p>
-
 
             <div class="feature-grid">
 
-
                 <div class="feature-card">
-
                     <div class="feature-icon">💻</div>
-
                     <h3>Code Assistant</h3>
-
                     <p>Build, debug and learn code faster.</p>
-
                 </div>
 
-
                 <div class="feature-card">
-
                     <div class="feature-icon">✍️</div>
-
                     <h3>Writing Studio</h3>
-
-                    <p>Emails, blogs, reports and content.</p>
-
+                    <p>Emails, blogs and reports.</p>
                 </div>
 
-
                 <div class="feature-card">
-
                     <div class="feature-icon">📄</div>
-
                     <h3>Document AI</h3>
-
-                    <p>Analyze PDFs and summarize documents.</p>
-
+                    <p>Analyze PDFs and documents.</p>
                 </div>
 
-
                 <div class="feature-card">
-
                     <div class="feature-icon">💡</div>
-
                     <h3>Idea Lab</h3>
-
-                    <p>Brainstorm and organize new ideas.</p>
-
+                    <p>Brainstorm and organize ideas.</p>
                 </div>
 
             </div>
 
         </section>
 
+        <!-- Chat -->
 
+        <section id="chatArea" class="chat-area chat-hidden">
 
-       <!-- ===================== -->
-<!-- Chat Area -->
-<!-- ===================== -->
+            <div id="chatMessages" class="chat-messages">
 
-<section id="chatArea" class="chat-area chat-hidden">
+            </div>
 
-    <div id="chatMessages" class="chat-messages">
+        </section>
 
-        <!-- User & AI messages appear here -->
-
-    </div>
-
-</section>
-
-
-        <!-- ===================== -->
         <!-- Prompt -->
-        <!-- ===================== -->
 
         <footer class="prompt-area">
 
             <div class="prompt-box">
 
                 <button class="attach-btn">
-
                     📎
-
                 </button>
 
-               <textarea
-                id="promptInput"
-                rows="1"
-                placeholder="Ask Lyrch AI anything..."
-                ></textarea>
+                <textarea
+                    id="promptInput"
+                    rows="1"
+                    placeholder="Ask Lyrch AI anything..."></textarea>
+
                 <button class="voice-btn">
-
                     🎤
-
                 </button>
 
                 <button class="send-btn">
-
                     ➜
-
                 </button>
 
             </div>
@@ -249,4 +183,5 @@
 </div>
 
 </body>
+
 </html>
