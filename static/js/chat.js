@@ -41,30 +41,33 @@ async function sendMessage() {
 
     try {
 
-        const data = await API.sendMessage(
+    const data = await API.sendMessage(
 
-            message,
+        message,
 
-            State.currentChatId
+        State.currentChatId
 
-        );
+    );
 
-        hideLoading();
+    console.log("========== SERVER RESPONSE ==========");
+    console.log(data);
+    console.log("====================================");
 
-        State.currentChatId = data.chat_id;
+    hideLoading();
 
-        addMessage(
+    State.currentChatId = data.chat_id;
 
-            "assistant",
+    addMessage(
 
-            data.reply
+        "assistant",
 
-        );
+        data.reply
 
-        await loadChats();
+    );
 
-    }
+    await loadChats();
 
+}
     catch(err){
 
         hideLoading();
