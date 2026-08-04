@@ -12,24 +12,22 @@ async function sendMessage() {
 
     console.log("===== sendMessage START =====");
 
-    console.log("State:", State);
-    console.log("UI.prompt:", UI.prompt);
-
-    if (State.loading) {
-        console.log("Already loading");
-        return;
-    }
+    if (State.loading) return;
 
     const message = UI.prompt.value.trim();
 
-    console.log("Message:", message);
+    if (!message) return;
 
-    if (!message) {
-        console.log("Empty message");
-        return;
+    State.loading = true;
+
+    // Show chat window on first message
+    if (!State.chatting) {
+
+        State.chatting = true;
+
+        showChat();
+
     }
-
-    console.log("Calling API...");
 
     addMessage("user", message);
 
@@ -41,55 +39,42 @@ async function sendMessage() {
 
     try {
 
-    const data = await API.sendMessage(
+        const data = await API.sendMessage(
+            message,
+            State.currentChatId
+        );
 
-        message,
+        console.log("========== SERVER RESPONSE ==========");
+        console.log(data);
+        console.log("====================================");
 
-        State.currentChatId
+        hideLoading();
 
-    );
+        State.currentChatId = data.chat_id;
 
-    console.log("========== SERVER RESPONSE ==========");
-    console.log(data);
-    console.log("====================================");
+        addMessage(
+            "assistant",
+            data.reply
+        );
 
-    hideLoading();
+        await loadChats();
 
-    State.currentChatId = data.chat_id;
-
-    addMessage(
-
-        "assistant",
-
-        data.reply
-
-    );
-
-    await loadChats();
-
-}
-    catch(err){
+    } catch (err) {
 
         hideLoading();
 
         addMessage(
-
             "assistant",
-
             "❌ " + err.message
-
         );
 
         console.error(err);
 
-    }
-
-    finally{
+    } finally {
 
         State.loading = false;
 
     }
-
 }
 
 /* ==========================================
