@@ -30,19 +30,24 @@ window.UI = UI;
 
 function showHero() {
 
+    console.log("❌ showHero() CALLED");
+
     UI.hero.classList.remove("hero-hidden");
     UI.hero.classList.add("hero-visible");
 
     UI.chatArea.classList.remove("chat-visible");
     UI.chatArea.classList.add("chat-hidden");
 
-}
+    console.log("chatArea classes:", UI.chatArea.className);
 
+}
 /* ==========================================
    SHOW CHAT
 ========================================== */
 
 function showChat() {
+
+    console.log("✅ showChat() CALLED");
 
     UI.hero.classList.remove("hero-visible");
     UI.hero.classList.add("hero-hidden");
@@ -50,8 +55,9 @@ function showChat() {
     UI.chatArea.classList.remove("chat-hidden");
     UI.chatArea.classList.add("chat-visible");
 
-}
+    console.log("chatArea classes:", UI.chatArea.className);
 
+}
 /* ==========================================
    CLEAR MESSAGES
 ========================================== */
