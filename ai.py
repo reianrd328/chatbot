@@ -13,7 +13,6 @@ SYSTEM_PROMPT = """
 You are Lyrch AI.
 
 Reply in the same language as the user.
-
 Be helpful, professional, and concise.
 """
 
@@ -26,13 +25,13 @@ def ask_ai(message):
         print("=" * 60)
         print("Calling Router by Nara")
         print("BASE URL:", Config.BASE_URL)
-        print("MODEL:", "mistral-large")
+        print("MODEL:", Config.MODEL)
         print("API KEY EXISTS:", bool(Config.API_KEY))
         print("USER MESSAGE:", message)
         print("=" * 60)
 
         response = client.chat.completions.create(
-            model="mistral-large",
+            model=Config.MODEL,
             messages=[
                 {
                     "role": "system",
@@ -47,7 +46,7 @@ def ask_ai(message):
 
         reply = response.choices[0].message.content
 
-        print("Finished in %.2fs" % (time.time() - start))
+        print(f"Finished in {time.time() - start:.2f}s")
         print("AI Reply:", reply)
 
         return reply
