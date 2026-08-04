@@ -10,25 +10,26 @@
 
 async function sendMessage() {
 
-    if (State.loading) return;
+    console.log("===== sendMessage START =====");
+
+    console.log("State:", State);
+    console.log("UI.prompt:", UI.prompt);
+
+    if (State.loading) {
+        console.log("Already loading");
+        return;
+    }
 
     const message = UI.prompt.value.trim();
 
-    if (!message) return;
+    console.log("Message:", message);
 
-    State.loading = true;
-
-    // Show chat window
-
-    if (!State.chatting) {
-
-        State.chatting = true;
-
-        showChat();
-
+    if (!message) {
+        console.log("Empty message");
+        return;
     }
 
-    // User message
+    console.log("Calling API...");
 
     addMessage("user", message);
 
