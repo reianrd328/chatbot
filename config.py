@@ -21,6 +21,7 @@ class Config:
 
     # AI
     API_KEY = os.getenv("API_KEY")
+
     BASE_URL = os.getenv(
         "BASE_URL",
         "https://router.bynara.id/v1"
@@ -28,5 +29,5 @@ class Config:
 
     MODEL = os.getenv(
         "MODEL",
-        "agnes-2.5-flash"
+        "mistral-large"
     )
