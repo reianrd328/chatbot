@@ -26,29 +26,23 @@ def ask_ai(message):
         print("=" * 60)
         print("Calling Router by Nara")
         print("BASE URL:", Config.BASE_URL)
-        print("MODEL:", Config.MODEL)
+        print("MODEL:", "mistral-large")
         print("API KEY EXISTS:", bool(Config.API_KEY))
         print("USER MESSAGE:", message)
         print("=" * 60)
 
         response = client.chat.completions.create(
-
-            model=Config.MODEL,
-
+            model="mistral-large",
             messages=[
-
                 {
                     "role": "system",
                     "content": SYSTEM_PROMPT
                 },
-
                 {
                     "role": "user",
                     "content": message
                 }
-
             ]
-
         )
 
         reply = response.choices[0].message.content
@@ -62,8 +56,8 @@ def ask_ai(message):
 
         print("=" * 60)
         print("AI ERROR")
-        print(type(e).__name__)
-        print(str(e))
+        print("Exception Type:", type(e).__name__)
+        print("Exception:", str(e))
         traceback.print_exc()
         print("=" * 60)
 
