@@ -17,6 +17,9 @@ from ai import ask_ai
 # ==========================================
 
 app = Flask(__name__)
+print("=" * 60)
+print("🚀 BUILD VERSION: v2.1 Upload Fix")
+print("=" * 60)
 app.config.from_object(Config)
 
 # ==========================================
