@@ -86,12 +86,20 @@ def chat():
             "error": "Invalid request."
         }), 400
 
-    message = data.get("message", "")
+    message = data.get("message", "").strip()
     chat_id = data.get("chat_id")
+
+    if not message:
+        return jsonify({
+            "success": False,
+            "error": "Message cannot be empty."
+        }), 400
 
     try:
 
-        # Create new chat
+        # ----------------------------------
+        # Create or load chat
+        # ----------------------------------
 
         if not chat_id:
 
@@ -111,13 +119,14 @@ def chat():
             ).first()
 
             if not chat:
-
                 return jsonify({
                     "success": False,
                     "error": "Chat not found."
                 }), 404
 
+        # ----------------------------------
         # Save user message
+        # ----------------------------------
 
         db.session.add(
             Message(
@@ -127,22 +136,31 @@ def chat():
             )
         )
 
-        # Rename first message
-
+        # Rename first chat
         if chat.title == "New Chat":
 
-            title = message.strip()
+            title = message[:40]
 
-            if len(title) > 40:
-                title = title[:40] + "..."
+            if len(message) > 40:
+                title += "..."
 
             chat.title = title
 
+        # ----------------------------------
         # Ask AI
+        # ----------------------------------
+
+        print("=" * 60)
+        print("Before ask_ai()")
 
         reply = ask_ai(message)
 
+        print("After ask_ai()")
+        print("=" * 60)
+
+        # ----------------------------------
         # Save AI reply
+        # ----------------------------------
 
         db.session.add(
             Message(
@@ -165,7 +183,11 @@ def chat():
         db.session.rollback()
 
         import traceback
+
+        print("=" * 60)
+        print("CHAT ROUTE ERROR")
         traceback.print_exc()
+        print("=" * 60)
 
         return jsonify({
             "success": False,
