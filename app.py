@@ -288,6 +288,28 @@ def get_chat(chat_id):
 
     })
 
+@app.route("/upload", methods=["POST"])
+@login_required
+def upload():
+
+    if "file" not in request.files:
+
+        return jsonify({
+            "success": False,
+            "error": "No file uploaded."
+        }),400
+
+    file = request.files["file"]
+
+    if file.filename == "":
+
+        return jsonify({
+            "success": False,
+            "error":"No selected file."
+        }),400
+
+    ...
+
 
 # ==========================================
 # Browser Closed
