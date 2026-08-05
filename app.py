@@ -1,4 +1,5 @@
 from flask import Flask, redirect, render_template, request, jsonify
+from werkzeug.utils import secure_filename
 from flask_login import (
     LoginManager,
     login_required,
