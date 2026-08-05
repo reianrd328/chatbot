@@ -23,11 +23,8 @@
 .chat-messages{
 
     width:100%;
-
-    max-width:900px;
-
+    max-width:1100px;
     margin:0 auto;
-
     display:flex;
 
     flex-direction:column;
@@ -71,14 +68,13 @@
 
 .bubble{
 
-    max-width:70%;
+    max-width:90%;
 
     padding:18px 22px;
 
     border-radius:22px;
 
-    font-size:16px;
-
+    font-size:17px;
     line-height:1.8;
 
     white-space:pre-wrap;
@@ -116,6 +112,56 @@
 
 }
 
+.bubble blockquote{
+
+    border-left:4px solid var(--primary);
+
+    padding-left:18px;
+
+    color:#CBD5E1;
+
+    margin:18px 0;
+
+}
+
+.bubble table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin:20px 0;
+
+}
+
+.bubble th,
+.bubble td{
+
+    border:1px solid #334155;
+
+    padding:12px;
+
+}
+
+.bubble th{
+
+    background:#111827;
+
+}
+
+.bubble a{
+
+    color:#38BDF8;
+
+    text-decoration:none;
+
+}
+
+.bubble a:hover{
+
+    text-decoration:underline;
+
+} 
 /* Animation */
 
 @keyframes fadeIn{
