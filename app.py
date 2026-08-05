@@ -1,6 +1,10 @@
 from flask import Flask, redirect, render_template, request, jsonify
 from werkzeug.utils import secure_filename
 import os
+from services.pdf_reader import read_pdf
+from services.doc_reader import read_doc
+from services.excel_reader import read_excel
+from services.txt_reader import read_txt
 from flask_login import (
     LoginManager,
     login_required,
