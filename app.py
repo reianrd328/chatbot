@@ -288,6 +288,10 @@ def get_chat(chat_id):
 
     })
 
+# ==========================================
+# Upload File
+# ==========================================
+
 @app.route("/upload", methods=["POST"])
 @login_required
 def upload():
@@ -297,7 +301,7 @@ def upload():
         return jsonify({
             "success": False,
             "error": "No file uploaded."
-        }),400
+        }), 400
 
     file = request.files["file"]
 
@@ -305,16 +309,63 @@ def upload():
 
         return jsonify({
             "success": False,
-            "error":"No selected file."
-        }),400
+            "error": "No selected file."
+        }), 400
 
-    ...
+    try:
 
+        filename = secure_filename(file.filename)
 
-# ==========================================
-# Browser Closed
-# ==========================================
+        ext = filename.rsplit(".", 1)[-1].lower()
 
+        if ext == "pdf":
+            folder = "uploads/pdf"
+
+        elif ext in ["doc", "docx"]:
+            folder = "uploads/docx"
+
+        elif ext in ["xls", "xlsx", "csv"]:
+            folder = "uploads/excel"
+
+        elif ext in ["png", "jpg", "jpeg", "gif", "webp"]:
+            folder = "uploads/images"
+
+        else:
+            folder = "uploads/txt"
+
+        os.makedirs(folder, exist_ok=True)
+
+        filepath = os.path.join(folder, filename)
+
+        file.save(filepath)
+
+        print("=" * 60)
+        print("FILE UPLOADED")
+        print(filepath)
+        print("=" * 60)
+
+        return jsonify({
+
+            "success": True,
+
+            "filename": filename,
+
+            "filepath": filepath
+
+        })
+
+    except Exception as e:
+
+        import traceback
+        traceback.print_exc()
+
+        return jsonify({
+
+            "success": False,
+
+            "error": str(e)
+
+        }), 500
 # ==========================
 # Browser Closed
 # ==========================
