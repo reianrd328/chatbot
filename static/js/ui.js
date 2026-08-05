@@ -89,7 +89,7 @@ function addMessage(role, text) {
     // Bubble
     const bubble = document.createElement("div");
     bubble.className = "bubble";
-    bubble.textContent = text;
+    bubble.innerHTML = marked.parse(text);
 
     if(role==="assistant"){
 
