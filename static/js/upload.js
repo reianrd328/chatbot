@@ -122,55 +122,35 @@ function getFileIcon(name) {
 
 async function uploadFile(file){
 
-    const form = new FormData();
+    console.log("===== uploadFile() START =====");
+    console.log(file);
 
+    const form = new FormData();
     form.append("file", file);
 
     try{
 
-        console.log("Uploading:", file.name);
+        console.log("Sending POST /upload...");
 
         const response = await fetch("/upload",{
-
             method:"POST",
-
             body:form
-
         });
 
         console.log("Status:", response.status);
 
         const text = await response.text();
 
-        console.log("Server replied:");
+        console.log("Response:");
         console.log(text);
 
-        let data = {};
+    }catch(err){
 
-        try{
-
-            data = JSON.parse(text);
-
-        }catch(e){
-
-            console.error("Server did not return JSON.");
-
-            return;
-
-        }
-
-        console.log("Upload Success");
-
-        console.log(data);
-
-    }
-
-    catch(err){
-
-        console.error("UPLOAD ERROR");
-
+        console.error("UPLOAD ERROR:");
         console.error(err);
 
     }
+
+}
 
 }
