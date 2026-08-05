@@ -120,6 +120,10 @@ function getFileIcon(name) {
    UPLOAD FILE
 ========================================== */
 
+/* ==========================================
+   UPLOAD FILE
+========================================== */
+
 async function uploadFile(file){
 
     console.log("===== uploadFile() START =====");
@@ -139,15 +143,48 @@ async function uploadFile(file){
 
         console.log("Status:", response.status);
 
-        const text = await response.text();
+        const data = await response.json();
 
         console.log("Response:");
-        console.log(text);
+        console.log(data);
+
+        if(data.success){
+
+            // Show chat if hidden
+            if(typeof showChat === "function"){
+                showChat();
+            }
+
+            // Display uploaded filename
+            addMessage(
+                "user",
+                `📎 **Uploaded:** ${data.filename}`
+            );
+
+            // Display AI summary
+            addMessage(
+                "assistant",
+                data.reply
+            );
+
+        }else{
+
+            addMessage(
+                "assistant",
+                "❌ " + data.error
+            );
+
+        }
 
     }catch(err){
 
         console.error("UPLOAD ERROR:");
         console.error(err);
+
+        addMessage(
+            "assistant",
+            "❌ Upload failed."
+        );
 
     }
 
