@@ -89,14 +89,28 @@ function addMessage(role, text) {
     // Bubble
     const bubble = document.createElement("div");
     bubble.className = "bubble";
-    bubble.innerHTML = marked.parse(text);
 
-    if(role==="assistant"){
+    // Render AI messages as Markdown
+    if (role === "assistant") {
+
+        bubble.innerHTML = DOMPurify.sanitize(
+            marked.parse(text)
+        );
+
+    } else {
+
+        // User messages stay plain text
+        bubble.textContent = text;
+
+    }
+
+    // Layout
+    if (role === "assistant") {
 
         wrapper.appendChild(avatar);
         wrapper.appendChild(bubble);
 
-    }else{
+    } else {
 
         wrapper.appendChild(bubble);
         wrapper.appendChild(avatar);
