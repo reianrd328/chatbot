@@ -1,5 +1,6 @@
 from pypdf import PdfReader
 
+
 def read_pdf(path):
 
     reader = PdfReader(path)
