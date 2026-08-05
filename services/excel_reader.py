@@ -1,7 +1,5 @@
 import pandas as pd
 
-def read_excel(path):
-
-    df = pd.read_excel(path)
-
-    return df.to_string()
+def read_excel(filepath):
+    df = pd.read_excel(filepath)
+    return df.to_string(index=False)
