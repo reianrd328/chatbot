@@ -302,35 +302,31 @@ def get_chat(chat_id):
 def upload():
 
     if "file" not in request.files:
-
         return jsonify({
             "success": False,
             "error": "No file uploaded."
         }), 400
 
-   file = request.files["file"]
-
-print("=" * 60)
-print("UPLOAD ROUTE START")
-print("request.files =", request.files)
-print("secure_filename =", secure_filename)
-print("file.filename =", file.filename)
-print("=" * 60)
-
-filename = secure_filename(file.filename)
-
-print("Safe filename =", filename)
+    file = request.files["file"]
 
     if file.filename == "":
-
         return jsonify({
             "success": False,
             "error": "No selected file."
         }), 400
 
-    try:
+    print("=" * 60)
+    print("UPLOAD ROUTE START")
+    print("request.files =", request.files)
+    print("secure_filename =", secure_filename)
+    print("file.filename =", file.filename)
+    print("=" * 60)
 
-        filename = secure_filename(file.filename)
+    filename = secure_filename(file.filename)
+
+    print("Safe filename =", filename)
+
+    try:
 
         ext = filename.rsplit(".", 1)[-1].lower()
 
@@ -355,19 +351,12 @@ print("Safe filename =", filename)
 
         file.save(filepath)
 
-        print("=" * 60)
-        print("FILE UPLOADED")
-        print(filepath)
-        print("=" * 60)
+        print("FILE SAVED:", filepath)
 
         return jsonify({
-
             "success": True,
-
             "filename": filename,
-
             "filepath": filepath
-
         })
 
     except Exception as e:
@@ -376,13 +365,9 @@ print("Safe filename =", filename)
         traceback.print_exc()
 
         return jsonify({
-
             "success": False,
-
             "error": str(e)
-
         }), 500
-# ==========================
 # Browser Closed
 # ==========================
 
