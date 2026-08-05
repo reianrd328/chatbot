@@ -308,7 +308,18 @@ def upload():
             "error": "No file uploaded."
         }), 400
 
-    file = request.files["file"]
+   file = request.files["file"]
+
+print("=" * 60)
+print("UPLOAD ROUTE START")
+print("request.files =", request.files)
+print("secure_filename =", secure_filename)
+print("file.filename =", file.filename)
+print("=" * 60)
+
+filename = secure_filename(file.filename)
+
+print("Safe filename =", filename)
 
     if file.filename == "":
 
