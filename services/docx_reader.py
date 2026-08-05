@@ -1,5 +1,6 @@
 from docx import Document
 
+
 def read_doc(path):
 
     doc = Document(path)
