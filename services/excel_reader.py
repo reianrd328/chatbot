@@ -2,20 +2,23 @@ import pandas as pd
 
 def read_excel(filepath):
 
-    try:
-        if filepath.lower().endswith(".xlsx"):
-            df = pd.read_excel(filepath, engine="openpyxl")
+    with open(filepath, "rb") as f:
+        header = f.read(16)
 
-        elif filepath.lower().endswith(".xls"):
-            df = pd.read_excel(filepath, engine="xlrd")
+    print("=" * 60)
+    print("HEADER:", header)
+    print("=" * 60)
 
-        elif filepath.lower().endswith(".csv"):
-            df = pd.read_csv(filepath)
+    if filepath.lower().endswith(".xlsx"):
+        df = pd.read_excel(filepath, engine="openpyxl")
 
-        else:
-            raise Exception("Unsupported spreadsheet format.")
+    elif filepath.lower().endswith(".xls"):
+        df = pd.read_excel(filepath, engine="xlrd")
 
-        return df.to_string(index=False)
+    elif filepath.lower().endswith(".csv"):
+        df = pd.read_csv(filepath)
 
-    except Exception as e:
-        raise Exception(f"Unable to read spreadsheet: {e}")
+    else:
+        raise Exception("Unsupported spreadsheet.")
+
+    return df.to_string(index=False)
