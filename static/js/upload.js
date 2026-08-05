@@ -128,6 +128,8 @@ async function uploadFile(file){
 
     try{
 
+        console.log("Uploading:", file.name);
+
         const response = await fetch("/upload",{
 
             method:"POST",
@@ -136,7 +138,26 @@ async function uploadFile(file){
 
         });
 
-        const data = await response.json();
+        console.log("Status:", response.status);
+
+        const text = await response.text();
+
+        console.log("Server replied:");
+        console.log(text);
+
+        let data = {};
+
+        try{
+
+            data = JSON.parse(text);
+
+        }catch(e){
+
+            console.error("Server did not return JSON.");
+
+            return;
+
+        }
 
         console.log("Upload Success");
 
@@ -145,6 +166,8 @@ async function uploadFile(file){
     }
 
     catch(err){
+
+        console.error("UPLOAD ERROR");
 
         console.error(err);
 
