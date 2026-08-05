@@ -324,42 +324,74 @@ def upload():
 
     filename = secure_filename(file.filename)
 
-    print("Safe filename =", filename)
+print("Safe filename =", filename)
 
-    try:
+try:
 
-        ext = filename.rsplit(".", 1)[-1].lower()
+    ext = filename.rsplit(".", 1)[-1].lower()
 
-        if ext == "pdf":
-            folder = "uploads/pdf"
+    if ext == "pdf":
+        folder = "uploads/pdf"
 
-        elif ext in ["doc", "docx"]:
-            folder = "uploads/docx"
+    elif ext in ["doc", "docx"]:
+        folder = "uploads/docx"
 
-        elif ext in ["xls", "xlsx", "csv"]:
-            folder = "uploads/excel"
+    elif ext in ["xls", "xlsx", "csv"]:
+        folder = "uploads/excel"
 
-        elif ext in ["png", "jpg", "jpeg", "gif", "webp"]:
-            folder = "uploads/images"
+    elif ext in ["png", "jpg", "jpeg", "gif", "webp"]:
+        folder = "uploads/images"
 
-        else:
-            folder = "uploads/txt"
+    else:
+        folder = "uploads/txt"
 
-        os.makedirs(folder, exist_ok=True)
+    os.makedirs(folder, exist_ok=True)
 
-        filepath = os.path.join(folder, filename)
+    filepath = os.path.join(folder, filename)
 
-        file.save(filepath)
+    # Save the uploaded file
+    file.save(filepath)
 
-        print("FILE SAVED:", filepath)
+    # ==========================================
+    # READ DOCUMENT HERE
+    # ==========================================
 
-        return jsonify({
-            "success": True,
-            "filename": filename,
-            "filepath": filepath
-        })
+    text = ""
 
-    except Exception as e:
+    if ext == "pdf":
+        text = read_pdf(filepath)
+
+    elif ext in ["doc", "docx"]:
+        text = read_doc(filepath)
+
+    elif ext in ["xls", "xlsx", "csv"]:
+        text = read_excel(filepath)
+
+    elif ext == "txt":
+        text = read_txt(filepath)
+
+    else:
+        text = "Unsupported file type."
+
+    # ==========================================
+    # SEND TO AI
+    # ==========================================
+
+    reply = ask_ai(f"""
+Summarize this document.
+
+{text}
+""")
+
+    return jsonify({
+        "success": True,
+        "filename": filename,
+        "filepath": filepath,
+        "reply": reply
+    })
+
+except Exception as e:
+    ...
 
         import traceback
         traceback.print_exc()
